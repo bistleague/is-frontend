@@ -7,10 +7,13 @@
                 <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
                     <v-layout wrap mt-5>
                         <v-flex xs12 sm12 md5 lg5 order-xs2 order-sm2 order-md1>
-                            <div class="mb-1">Team Name</div>
+                            <div class="mb-1 grey--text">Team Name</div>
                             <v-text-field label="Team Name" solo></v-text-field>
 
-                            <div class="mb-1">Team Members</div>
+                            <div class="mb-1 grey--text">University</div>
+                            <v-text-field label="University" solo></v-text-field>
+
+                            <div class="mb-1 grey--text">Team Members</div>
                             <v-expansion-panel expand="true" class="elevation-2">
                                 <v-expansion-panel-content>
                                     <template v-slot:header>
@@ -103,7 +106,41 @@
                                     </v-card>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
-                            <v-btn outline block color="grey darken-1" class="text-none mt-3">Add team member</v-btn>
+                            <v-btn outline block color="grey darken-1" class="text-none mt-3">Invite team member</v-btn>
+
+                            <div class="mb-1 mt-4 grey--text">Required Documents</div>
+                            <v-expansion-panel expand="true" class="elevation-2">
+                                <v-expansion-panel-content>
+                                    <template v-slot:actions>
+                                        <v-icon color="teal">done</v-icon>
+                                    </template>
+                                    <template v-slot:header>
+                                        <div>Proof of payment</div>
+                                    </template>
+                                    <v-card>
+                                        <v-card-text class="grey lighten-4 pl-4 pr-4">
+                                            <div>Status</div>
+                                            <div><b>Verified</b> - Your proof of payment is verified!</div>
+                                        </v-card-text>
+                                    </v-card>
+                                </v-expansion-panel-content>
+                                <v-expansion-panel-content>
+                                    <template v-slot:actions>
+                                        <v-icon color="error">error</v-icon>
+                                    </template>
+                                    <template v-slot:header>
+                                        <div>Proof of enrollment</div>
+                                    </template>
+                                    <v-card>
+                                        <v-card-text class="grey lighten-4 pl-4 pr-4">
+                                            <p>Proof of enrollment is required to ensure all participants are still students until the end of the competition.</p>
+                                            <p>You can upload a letter from your university stating that you are still a student until <b>November 2019</b></p>
+                                            <v-btn outline small block color="grey darken-1" class="text-none">Upload</v-btn>
+                                        </v-card-text>
+                                    </v-card>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                            <v-btn block color="primary" class="text-none mt-4">Save</v-btn>
                         </v-flex>
                         <v-flex xs1 sm1 md1 lg1 order-xs3 order-sm3 order-md2></v-flex>
                         <v-flex xs12 sm12 md6 lg6 order-xs1 order-sm1 order-md3 class="grey--text text--darken-1">
