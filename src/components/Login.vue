@@ -9,7 +9,7 @@
                             <div class="headline" style="margin-top: 24px">Welcome!</div>
                             <p>Type in your email and password to sign in</p>
 
-                            <div style="height: 64px"></div>
+                            <div style="height: 48px"></div>
                             <v-text-field label="Email address"></v-text-field>
                             <v-text-field label="Password" type="password"></v-text-field>
                             <div style="height: 8px"></div>
