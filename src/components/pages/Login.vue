@@ -5,7 +5,7 @@
                 <v-flex>
                     <div align="center">
                         <v-card id="login-box" elevation="8">
-                            <v-img :src="require('../assets/logo.png')" width="100"></v-img>
+                            <v-img :src="require('../../assets/logo.png')" width="100"></v-img>
                             <div class="headline" style="margin-top: 24px">Welcome!</div>
                             <p>Type in your email and password to sign in</p>
 
@@ -20,6 +20,8 @@
                                         <v-flex>
                                             <div align="left">
                                                 <a>Forgot password?</a>
+                                                <br />
+                                                <router-link to="register" style="text-decoration: none;">New user? <b>Sign up</b></router-link>
                                             </div>
                                         </v-flex>
                                     </v-layout>
