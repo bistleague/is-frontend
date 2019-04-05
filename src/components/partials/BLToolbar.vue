@@ -10,11 +10,14 @@
                         <v-toolbar-title><b>BIST League 2019</b></v-toolbar-title>
                     </v-flex>
                     <v-spacer></v-spacer>
+                    <v-flex shrink class="mr-3 font-weight-bold">
+                        <a>Competition</a>
+                    </v-flex>
+                    <v-flex shrink class="mr-3 font-weight-bold">
+                        <a>Seminar</a>
+                    </v-flex>
                     <v-flex shrink>
-                        <v-avatar size="28" color="grey lighten-4" class="mr-2">
-                            <img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" alt="avatar">
-                        </v-avatar>
-                        Muhammad
+                        <a><v-icon>account_circle</v-icon></a>
                     </v-flex>
                 </v-layout>
             </v-flex>

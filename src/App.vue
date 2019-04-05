@@ -21,7 +21,7 @@
         {path: "/hello", component: HelloWorld},
         {path: "/login", component: Login},
         {path: "/register", component: SignUp},
-        {path: "/dashboard/onboarding", component: Registration},
+        {path: "/competition/register", component: Registration},
     ];
 
     const router = new VueRouter({
