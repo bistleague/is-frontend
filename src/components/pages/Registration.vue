@@ -8,7 +8,7 @@
                     <v-layout wrap mt-5>
                         <v-flex xs12 sm12 md5 lg5 order-xs2 order-sm2 order-md1>
                             <div class="mb-1 grey--text">Team Name</div>
-                            <v-text-field label="Team Name" solo></v-text-field>
+                            <v-text-field label="Team Name" solo>{{team_name}}</v-text-field>
 
                             <div class="mb-1 grey--text">University</div>
                             <v-text-field label="University" solo></v-text-field>
@@ -123,7 +123,53 @@
         components: {ParticipantCard, BLStepper, BLToolbar},
         data () {
             return {
-                dialog: false
+                dialog: false,
+                registration: {
+                    team_name: "My Awesome Team",
+                    university: "Institut Teknologi Bandung",
+                    payment: {
+                        uploaded: true,
+                        status: 'PENDING',   // PENDING, VERIFIED, REJECTED
+                        filename: 'IMG_2052.png',
+                        url: 'https://docs.bistleague.com/f/p/73fd5528aab312/IMG_2052.png'
+                    },
+                    team_members: [
+                        {
+                            name: "Muhammad Aditya Hilmy",
+                            id: 'bf2didit',
+                            email: 'email@example.com',
+                            student_id: {
+                                uploaded: true,
+                                status: 'VERIFIED',   // PENDING, VERIFIED, REJECTED
+                                filename: 'IMG_4094.png',
+                                url: 'https://docs.bistleague.com/f/p/73fd5528aab312/IMG_4094.png'
+                            },
+                            proof_of_enrollment: {
+                                uploaded: true,
+                                status: 'VERIFIED',   // PENDING, VERIFIED, REJECTED
+                                filename: 'IMG_4094.png',
+                                url: 'https://docs.bistleague.com/f/p/73fd5528aab312/IMG_4094.png'
+                            }
+                        },
+                        {
+                            name: "Alfian Maulana Ibrahim",
+                            id: 'bf2alfin',
+                            email: 'email@example.com',
+                            student_id: {
+                                uploaded: true,
+                                status: 'REJECTED',   // PENDING, VERIFIED, REJECTED
+                                filename: 'IMG_4094.png',
+                                url: 'https://docs.bistleague.com/f/p/73fd5528aab312/IMG_4094.png'
+                            },
+                            proof_of_enrollment: {
+                                uploaded: true,
+                                status: 'VERIFIED',   // PENDING, VERIFIED, REJECTED
+                                filename: 'IMG_4094.png',
+                                url: 'https://docs.bistleague.com/f/p/73fd5528aab312/IMG_4094.png'
+                            }
+                        }
+                    ]
+                }
             }
         }
     }
