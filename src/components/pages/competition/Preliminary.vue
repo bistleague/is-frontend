@@ -69,8 +69,8 @@
 </template>
 
 <script>
-    import BLToolbar from "../partials/BLToolbar";
-    import BLStepper from "../partials/BLStepper";
+    import BLToolbar from "../../partials/BLToolbar";
+    import BLStepper from "../../partials/BLStepper";
     export default {
         name: "Preliminary",
         components: {BLStepper, BLToolbar},

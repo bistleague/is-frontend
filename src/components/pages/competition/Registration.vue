@@ -114,9 +114,9 @@
 </template>
 
 <script>
-    import BLToolbar from "../partials/BLToolbar";
-    import BLStepper from "../partials/BLStepper";
-    import ParticipantCard from "../partials/teamreg/ParticipantCard";
+    import BLToolbar from "../../partials/BLToolbar";
+    import BLStepper from "../../partials/BLStepper";
+    import ParticipantCard from "../../partials/competition/ParticipantCard";
 
     export default {
         name: "Registration",

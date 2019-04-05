@@ -15,8 +15,10 @@
 
     import Login from './components/pages/Login'
     import SignUp from './components/pages/SignUp'
-    import Registration from './components/pages/Registration'
-    import Preliminary from './components/pages/Preliminary'
+    import Registration from './components/pages/competition/Registration'
+    import Preliminary from './components/pages/competition/Preliminary'
+    import Semifinal from './components/pages/competition/Semifinal'
+    import Final from './components/pages/competition/Final'
 
     const routes = [
         {path: "/hello", component: HelloWorld},
@@ -24,6 +26,8 @@
         {path: "/register", component: SignUp},
         {path: "/competition/register", component: Registration},
         {path: "/competition/preliminary", component: Preliminary},
+        {path: "/competition/semifinal", component: Semifinal},
+        {path: "/competition/final", component: Final},
     ];
 
     const router = new VueRouter({
