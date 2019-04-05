@@ -20,29 +20,7 @@
                                         <div>Muhammad Aditya Hilmy (You)</div>
                                     </template>
                                     <v-card>
-                                        <v-card-text class="grey lighten-4 pl-4 pr-4">
-                                            <v-layout>
-                                                <v-flex>
-                                                    <div>Email address</div>
-                                                    <div><b>example@domain.com</b></div>
-                                                </v-flex>
-                                                <v-flex shrink class="pa-0">
-                                                    <v-menu bottom left origin="top right" transition="scale-transition">
-                                                        <template v-slot:activator="{ on }">
-                                                            <v-btn class="ma-0 pa-0" icon small v-on="on"><v-icon small color="grey darken-1">more_vert</v-icon></v-btn>
-                                                        </template>
-
-                                                        <v-list>
-                                                            <v-list-tile>
-                                                                <v-list-tile-title>Leave team</v-list-tile-title>
-                                                            </v-list-tile>
-                                                        </v-list>
-                                                    </v-menu>
-                                                </v-flex>
-                                            </v-layout>
-                                            <div class="mt-3">Student ID</div>
-                                            <v-btn outline small block color="grey darken-1" class="text-none">Upload</v-btn>
-                                        </v-card-text>
+                                        <ParticipantCard is-user email="email@example.com"></ParticipantCard>
                                     </v-card>
                                 </v-expansion-panel-content>
                                 <v-expansion-panel-content>
@@ -50,29 +28,7 @@
                                         <div>Alfian Maulana Ibrahim</div>
                                     </template>
                                     <v-card>
-                                        <v-card-text class="grey lighten-4 pl-4 pr-4">
-                                            <v-layout>
-                                                <v-flex>
-                                                    <div>Email address</div>
-                                                    <div><b>example@domain.com</b></div>
-                                                </v-flex>
-                                                <v-flex shrink class="pa-0">
-                                                    <v-menu bottom left origin="top right" transition="scale-transition">
-                                                        <template v-slot:activator="{ on }">
-                                                            <v-btn class="ma-0 pa-0" icon small v-on="on"><v-icon small color="grey darken-1">more_vert</v-icon></v-btn>
-                                                        </template>
-
-                                                        <v-list>
-                                                            <v-list-tile>
-                                                                <v-list-tile-title>Delete member</v-list-tile-title>
-                                                            </v-list-tile>
-                                                        </v-list>
-                                                    </v-menu>
-                                                </v-flex>
-                                            </v-layout>
-                                            <div class="mt-3">Student ID</div>
-                                            <v-btn outline small block color="grey darken-1" class="text-none">Upload</v-btn>
-                                        </v-card-text>
+                                        <ParticipantCard email="email@example.com" doc-poe-status="pending" doc-poe-link="https://docs.bistleague.com/poe/3f22d5ba7.png" doc-poe-name="New Doc 10-01-2019.pdf"></ParticipantCard>
                                     </v-card>
                                 </v-expansion-panel-content>
                                 <v-expansion-panel-content>
@@ -80,29 +36,7 @@
                                         <div>Muhammad Fiqri Fatriansyah</div>
                                     </template>
                                     <v-card>
-                                        <v-card-text class="grey lighten-4 pl-4 pr-4">
-                                            <v-layout>
-                                                <v-flex>
-                                                    <div>Email address</div>
-                                                    <div><b>example@domain.com</b></div>
-                                                </v-flex>
-                                                <v-flex shrink class="pa-0">
-                                                    <v-menu bottom left origin="top right" transition="scale-transition">
-                                                        <template v-slot:activator="{ on }">
-                                                            <v-btn class="ma-0 pa-0" icon small v-on="on"><v-icon small color="grey darken-1">more_vert</v-icon></v-btn>
-                                                        </template>
-
-                                                        <v-list>
-                                                            <v-list-tile>
-                                                                <v-list-tile-title>Delete member</v-list-tile-title>
-                                                            </v-list-tile>
-                                                        </v-list>
-                                                    </v-menu>
-                                                </v-flex>
-                                            </v-layout>
-                                            <div class="mt-3">Student ID</div>
-                                            <v-btn outline small block color="grey darken-1" class="text-none">Upload</v-btn>
-                                        </v-card-text>
+                                        <ParticipantCard email="email@example.com" doc-poe-status="verified" doc-poe-link="https://docs.bistleague.com/poe/3f22d5ba7.png" doc-poe-name="New Doc 10-01-2019.pdf" doc-std-id-link="https://docs.bistleague.com/poe/3f22d5ba7.png" doc-std-id-name="ktm.png" doc-std-id-status="verified"></ParticipantCard>
                                     </v-card>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
@@ -158,10 +92,11 @@
 <script>
     import BLToolbar from "../partials/BLToolbar";
     import BLStepper from "../partials/BLStepper";
+    import ParticipantCard from "../partials/teamreg/ParticipantCard";
 
     export default {
         name: "Registration",
-        components: {BLStepper, BLToolbar}
+        components: {ParticipantCard, BLStepper, BLToolbar}
     }
 </script>
 
