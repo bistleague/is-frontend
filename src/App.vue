@@ -16,12 +16,14 @@
     import Login from './components/pages/Login'
     import SignUp from './components/pages/SignUp'
     import Registration from './components/pages/Registration'
+    import Preliminary from './components/pages/Preliminary'
 
     const routes = [
         {path: "/hello", component: HelloWorld},
         {path: "/login", component: Login},
         {path: "/register", component: SignUp},
         {path: "/competition/register", component: Registration},
+        {path: "/competition/preliminary", component: Preliminary},
     ];
 
     const router = new VueRouter({

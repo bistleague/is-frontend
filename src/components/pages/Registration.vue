@@ -103,7 +103,7 @@
                         <v-flex xs12 sm12 md6 lg6 order-xs1 order-sm1 order-md3 class="grey--text text--darken-1">
                             <div class="headline font-weight-bold">Welcome aboard!</div>
                             <p class="mt-3">Your journey of participating in BIST League 2019 begins here. Kindly fill in all the information required in the form.</p>
-                            <p>If you need to come back later, you can save your data by clicking “Save as Draft” button below.</p>
+                            <p>You can freely change your registration data before the deadline is up. Just click "Save" when you make any changes. Don't worry if the status of your application is still pending when the deadline is up, we'll still receive it.</p>
                         </v-flex>
                     </v-layout>
                 </v-flex>
