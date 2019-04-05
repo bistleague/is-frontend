@@ -14,66 +14,89 @@
                             <v-text-field label="University" solo></v-text-field>
 
                             <div class="mb-1 grey--text">Team Members</div>
-                            <v-expansion-panel expand="true" class="elevation-2">
-                                <v-expansion-panel-content>
-                                    <template v-slot:header>
-                                        <div>Muhammad Aditya Hilmy (You)</div>
-                                    </template>
-                                    <v-card>
-                                        <ParticipantCard is-user email="email@example.com"></ParticipantCard>
-                                    </v-card>
-                                </v-expansion-panel-content>
-                                <v-expansion-panel-content>
-                                    <template v-slot:header>
-                                        <div>Alfian Maulana Ibrahim</div>
-                                    </template>
-                                    <v-card>
-                                        <ParticipantCard email="email@example.com" doc-poe-status="pending" doc-poe-link="https://docs.bistleague.com/poe/3f22d5ba7.png" doc-poe-name="New Doc 10-01-2019.pdf"></ParticipantCard>
-                                    </v-card>
-                                </v-expansion-panel-content>
-                                <v-expansion-panel-content>
-                                    <template v-slot:header>
-                                        <div>Muhammad Fiqri Fatriansyah</div>
-                                    </template>
-                                    <v-card>
-                                        <ParticipantCard email="email@example.com" doc-poe-status="verified" doc-poe-link="https://docs.bistleague.com/poe/3f22d5ba7.png" doc-poe-name="New Doc 10-01-2019.pdf" doc-std-id-link="https://docs.bistleague.com/poe/3f22d5ba7.png" doc-std-id-name="ktm.png" doc-std-id-status="verified"></ParticipantCard>
-                                    </v-card>
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
-                            <v-btn outline block color="grey darken-1" class="text-none mt-3">Invite team member</v-btn>
 
-                            <div class="mb-1 mt-4 grey--text">Required Documents</div>
-                            <v-expansion-panel expand="true" class="elevation-2">
-                                <v-expansion-panel-content>
-                                    <template v-slot:actions>
-                                        <v-icon color="teal">done</v-icon>
-                                    </template>
-                                    <template v-slot:header>
-                                        <div>Proof of payment</div>
-                                    </template>
+                            <v-card elevation-2>
+                                <v-expansion-panel expand="true" class="elevation-0">
+                                    <v-expansion-panel-content>
+                                        <template v-slot:header>
+                                            <div>Muhammad Aditya Hilmy (You)</div>
+                                        </template>
+                                        <v-card>
+                                            <ParticipantCard is-user email="email@example.com"></ParticipantCard>
+                                        </v-card>
+                                    </v-expansion-panel-content>
+                                    <v-expansion-panel-content>
+                                        <template v-slot:header>
+                                            <div>Alfian Maulana Ibrahim</div>
+                                        </template>
+                                        <v-card>
+                                            <ParticipantCard email="email@example.com" doc-poe-status="pending" doc-poe-link="https://docs.bistleague.com/poe/3f22d5ba7.png" doc-poe-name="New Doc 10-01-2019.pdf"></ParticipantCard>
+                                        </v-card>
+                                    </v-expansion-panel-content>
+                                    <v-expansion-panel-content>
+                                        <template v-slot:header>
+                                            <div>Muhammad Fiqri Fatriansyah</div>
+                                        </template>
+                                        <v-card>
+                                            <ParticipantCard email="email@example.com" doc-poe-status="verified" doc-poe-link="https://docs.bistleague.com/poe/3f22d5ba7.png" doc-poe-name="New Doc 10-01-2019.pdf" doc-std-id-link="https://docs.bistleague.com/poe/3f22d5ba7.png" doc-std-id-name="ktm.png" doc-std-id-status="verified"></ParticipantCard>
+                                        </v-card>
+                                    </v-expansion-panel-content>
+                                </v-expansion-panel>
+                                <v-divider></v-divider>
+                                <v-btn flat block color="grey darken-1" class="text-none mt-0" @click.stop="dialog = true"><v-icon>add</v-icon> &nbsp; Invite team member</v-btn>
+                                <v-dialog v-model="dialog" max-width="400">
                                     <v-card>
-                                        <v-card-text class="grey lighten-4 pl-4 pr-4">
-                                            <div>Status</div>
-                                            <div><b>Verified</b> - Your proof of payment is verified!</div>
+                                        <v-card-title class="subheading primary white--text">Invite team member</v-card-title>
+                                        <v-card-text>
+                                            Ask your friend to sign up on Bistleague.com, and join a team with the invite code:
+                                            <v-sheet color="grey lighten-4" class="pa-1 mt-3 mb-1">
+                                                <div class="headline font-weight-bold" align="center" style="letter-spacing: 8px !important;">ABXBDC</div>
+                                            </v-sheet>
                                         </v-card-text>
+
+                                        <v-card-actions>
+                                            <v-btn color="grey darken-2" flat class="text-none" flat="flat" @click="dialog = false">
+                                                Recreate code
+                                            </v-btn>
+                                            <v-spacer></v-spacer>
+
+                                            <v-btn color="primary" outline class="text-none" @click="dialog = false">
+                                                Close
+                                            </v-btn>
+                                        </v-card-actions>
                                     </v-card>
-                                </v-expansion-panel-content>
-                                <v-expansion-panel-content>
-                                    <template v-slot:actions>
-                                        <v-icon color="error">error</v-icon>
-                                    </template>
-                                    <template v-slot:header>
-                                        <div>Proof of enrollment</div>
-                                    </template>
-                                    <v-card>
-                                        <v-card-text class="grey lighten-4 pl-4 pr-4">
-                                            <p>Proof of enrollment is required to ensure all participants are still students until the end of the competition.</p>
-                                            <p>You can upload a letter from your university stating that you are still a student until <b>November 2019</b></p>
-                                            <v-btn outline small block color="grey darken-1" class="text-none">Upload</v-btn>
-                                        </v-card-text>
-                                    </v-card>
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
+                                </v-dialog>
+                            </v-card>
+
+
+                            <div class="mb-1 mt-4 grey--text">Proof of payment</div>
+                            <v-card>
+                                <div class="orange pa-3 white--text">
+                                    <v-layout align-center>
+                                        <v-flex>
+                                            Pending verification
+                                        </v-flex>
+                                        <v-flex shrink>
+                                            <v-icon small dark class="ma-0">check_circle</v-icon>
+                                        </v-flex>
+                                    </v-layout>
+                                </div>
+                                <v-card-text class="pa-3">
+                                    The proof of payment you uploaded is being reviewed.
+                                    <v-layout align-center class="mt-2">
+                                        <v-flex shrink>
+                                            <v-icon small class="mr-1">attachment</v-icon>
+                                        </v-flex>
+                                        <v-flex>
+                                            <a target="_blank" href="http://docs.bistleague.com/v/py/1182.png">IMG_0425.jpg</a>
+                                        </v-flex>
+                                        <v-flex shrink>
+                                            <v-btn icon small class="ma-0"><v-icon small color="red">delete</v-icon></v-btn>
+                                        </v-flex>
+                                    </v-layout>
+                                </v-card-text>
+                            </v-card>
+
                             <v-btn block color="primary" class="text-none mt-4">Save</v-btn>
                         </v-flex>
                         <v-flex xs1 sm1 md1 lg1 order-xs3 order-sm3 order-md2></v-flex>
@@ -87,6 +110,7 @@
             </v-layout>
         </v-content>
     </v-app>
+
 </template>
 
 <script>
@@ -96,7 +120,12 @@
 
     export default {
         name: "Registration",
-        components: {ParticipantCard, BLStepper, BLToolbar}
+        components: {ParticipantCard, BLStepper, BLToolbar},
+        data () {
+            return {
+                dialog: false
+            }
+        }
     }
 </script>
 
