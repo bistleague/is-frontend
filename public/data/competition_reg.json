@@ -1,0 +1,47 @@
+{
+  "team_name":"My Awesome Team",
+  "university":"Institut Teknologi Bandung",
+  "invite_code": "ABXBDC",
+  "payment":{
+    "uploaded":true,
+    "status":"PENDING",
+    "filename":"IMG_2052.png",
+    "url":"http://files.bistleague.com/f/p/73fd5528aab312/IMG_2052.png"
+  },
+  "team_members":[
+    {
+      "name":"Muhammad Aditya Hilmy",
+      "id":"bf2didit",
+      "email":"email@example.com",
+      "student_id":{
+        "uploaded":true,
+        "status":"VERIFIED",
+        "filename":"IMG_4094.png",
+        "url":"http://files.bistleague.com/f/p/73fd5528aab312/IMG_4094.png"
+      },
+      "proof_of_enrollment":{
+        "uploaded":true,
+        "status":"VERIFIED",
+        "filename":"IMG_4094.png",
+        "url":"http://files.bistleague.com/f/p/73fd5528aab312/IMG_4094.png"
+      }
+    },
+    {
+      "name":"Alfian Maulana Ibrahim",
+      "id":"bf2alfin",
+      "email":"email@example.com",
+      "student_id":{
+        "uploaded":true,
+        "status":"REJECTED",
+        "filename":"IMG_4094.png",
+        "url":"http://files.bistleague.com/f/p/73fd5528aab312/IMG_4094.png"
+      },
+      "proof_of_enrollment":{
+        "uploaded":true,
+        "status":"VERIFIED",
+        "filename":"IMG_4094.png",
+        "url":"http://files.bistleague.com/f/p/73fd5528aab312/IMG_4094.png"
+      }
+    }
+  ]
+}

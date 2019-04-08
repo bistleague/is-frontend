@@ -5,7 +5,7 @@
         <v-content class="pl-3 pr-3">
             <v-layout>
                 <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
-                    <SemifinalAwait v-if="await" :qualified="qualified" team-name="My Awesome Team"></SemifinalAwait>
+                    <SemifinalAwait v-if="waiting" :qualified="qualified" team-name="My Awesome Team"></SemifinalAwait>
                 </v-flex>
             </v-layout>
         </v-content>
@@ -22,7 +22,7 @@
         components: {BLToolbar, BLStepper, SemifinalAwait},
         data() {
             return {
-                await: true,
+                waiting: true,
                 qualified: true
             }
         }
