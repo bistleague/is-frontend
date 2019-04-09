@@ -3,10 +3,11 @@
         <BLToolbar />
         <BLStepper step="2" />
         <v-content class="pl-3 pr-3">
-            <v-layout>
+            <v-layout v-if="!loading">
                 <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
-                    <PreliminaryAwait :team-name="predata.team_name" v-if="!predata.started && !loading"></PreliminaryAwait>
-                    <v-layout wrap mt-5 v-if="predata.started && !loading">
+                    <PreliminaryAwait :team-name="predata.team_name" v-if="!predata.started && !predata.stage_closed"></PreliminaryAwait>
+                    <PreliminaryClosed v-if="predata.stage_closed"></PreliminaryClosed>
+                    <v-layout wrap mt-5 v-if="predata.started && !predata.stage_closed">
                         <v-flex xs12 sm12 md5 lg5 order-xs2 order-sm2 order-md1>
                             <div class="headline font-weight-bold grey--text text--darken-1">Preliminary Round</div>
                             <p class="mt-3 grey--text text--darken-1">Welcome to Preliminary Round! You are given a case, which you can download by clicking the button below, and you'll need to make a presentation with an audio narration talking about the case.</p>
@@ -74,6 +75,7 @@
 </template>
 
 <script>
+    import PreliminaryClosed from "../../partials/competition/PreliminaryClosed";
     const $ = require("jquery");
     import BLToolbar from "../../partials/BLToolbar";
     import BLStepper from "../../partials/BLStepper";
@@ -82,7 +84,7 @@
 
     export default {
         name: "Preliminary",
-        components: {PreliminaryAwait, BLStepper, BLToolbar},
+        components: {PreliminaryClosed, PreliminaryAwait, BLStepper, BLToolbar},
         data() {
             return {
                 loading: true,

@@ -1,6 +1,7 @@
 {
-  "started": true,
-  "stage_closed": false,
+  "qualified": true,
+  "started": false,
+  "stage_closed": true,
   "team_name": "My Awesome Team",
   "deadline": 1737222122,
   "case_url": "http://files.bistleague.com/public/preliminary.pdf",
