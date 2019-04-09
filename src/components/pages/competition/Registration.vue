@@ -16,7 +16,7 @@
                             <div class="mb-1 grey--text">Team Members</div>
 
                             <v-card elevation-2>
-                                <div v-for="(item, index) in registration.team_members">
+                                <div v-for="item in registration.team_members" :key="item.id">
                                     <v-expansion-panel expand class="elevation-0">
                                         <v-expansion-panel-content>
                                             <template v-slot:header>
@@ -77,8 +77,9 @@
                                                             </template>
 
                                                             <v-card class="pa-3" max-width="350">
-                                                                <p>Proof of enrollment is required to ensure all participants are still active students until the end of the competition.</p>
-                                                                <p class="mb-0">You can upload a letter from your university stating that you are still a student by <b>November 2019</b></p>
+                                                                <p>Proof of enrollment is required to ensure all participants are still active undergraduate students until the end of the competition.</p>
+                                                                <p>You can upload your student study card (Kartu Studi Mahasiswa) if available, or you can upload a screenshot from your study plan that shows your name, enrollment year, and the semester that you're currently attending.</p>
+                                                                <p class="mb-0">You can also upload a letter from your university stating that you are still an undergraduate student by <b>November 2019</b>.</p>
                                                             </v-card>
                                                         </v-menu>
                                                     </div>
@@ -224,14 +225,13 @@
 <script>
     import BLToolbar from "../../partials/BLToolbar";
     import BLStepper from "../../partials/BLStepper";
-    import ParticipantCard from "../../partials/competition/ParticipantCard";
     const $ = require("jquery");
 
     let registrationData = {};
 
     export default {
         name: "Registration",
-        components: {ParticipantCard, BLStepper, BLToolbar},
+        components: {BLStepper, BLToolbar},
         mounted: function() {
             this.load();
         },
