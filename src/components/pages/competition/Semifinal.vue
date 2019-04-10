@@ -1,7 +1,9 @@
 <template>
     <v-app>
         <BLToolbar />
-        <BLStepper step="3" />
+        <BLSubHeader>
+            <BLStepper step="3" />
+        </BLSubHeader>
         <v-content class="pl-3 pr-3">
             <v-layout v-if="!loading">
                 <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
@@ -83,12 +85,13 @@
     import BLStepper from "../../partials/BLStepper";
     import SemifinalAwait from "../../partials/competition/SemifinalAwait";
     import SemifinalClosed from "../../partials/competition/SemifinalClosed";
+    import BLSubHeader from "../../partials/BLSubHeader";
     const timeago = require("timeago.js");
     const $ = require("jquery");
 
     export default {
         name: "Semifinal",
-        components: {SemifinalClosed, BLToolbar, BLStepper, SemifinalAwait},
+        components: {BLSubHeader, SemifinalClosed, BLToolbar, BLStepper, SemifinalAwait},
         data() {
             return {
                 loading: true,

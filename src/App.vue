@@ -5,7 +5,7 @@
 </template>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+  @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,700');
   @import url('./assets/main.module.css');
 </style>
 
@@ -19,11 +19,13 @@
     import Preliminary from './components/pages/competition/Preliminary'
     import Semifinal from './components/pages/competition/Semifinal'
     import Final from './components/pages/competition/Final'
+    import Profile from './components/pages/Profile'
 
     const routes = [
         {path: "/hello", component: HelloWorld},
         {path: "/login", component: Login},
         {path: "/register", component: SignUp},
+        {path: "/profile", component: Profile},
         {path: "/competition/register", component: Registration},
         {path: "/competition/preliminary", component: Preliminary},
         {path: "/competition/semifinal", component: Semifinal},

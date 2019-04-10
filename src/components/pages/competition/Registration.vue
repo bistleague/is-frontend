@@ -1,7 +1,9 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-app>
         <BLToolbar />
-        <BLStepper step="1" />
+        <BLSubHeader>
+            <BLStepper step="1" />
+        </BLSubHeader>
         <v-content class="pl-3 pr-3">
             <v-layout v-if="!loading">
                 <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
@@ -225,13 +227,14 @@
 <script>
     import BLToolbar from "../../partials/BLToolbar";
     import BLStepper from "../../partials/BLStepper";
+    import BLSubHeader from "../../partials/BLSubHeader";
     const $ = require("jquery");
 
     let registrationData = {};
 
     export default {
         name: "Registration",
-        components: {BLStepper, BLToolbar},
+        components: {BLSubHeader, BLStepper, BLToolbar},
         mounted: function() {
             this.load();
         },
