@@ -1,33 +1,63 @@
-<template>
-    <v-toolbar flat color="#ffffff">
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+    <div class="white">
         <v-layout>
             <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
-                <v-layout align-center fill-height>
-                    <v-flex shrink>
-                        <v-img :src="require('../../assets/logo.png')" width="25" class="mr-2"></v-img>
-                    </v-flex>
-                    <v-flex>
-                        <v-toolbar-title><b>BIST League 2019</b></v-toolbar-title>
-                    </v-flex>
+                <v-toolbar flat color="#ffffff">
+                    <v-toolbar-title>
+                        <v-img :src="require('../../assets/logo.png')" width="30"></v-img>
+                    </v-toolbar-title>
+                    <v-toolbar-title class="subheading font-weight-bold">
+                        BIST League 2019
+                    </v-toolbar-title>
+
                     <v-spacer></v-spacer>
-                    <v-flex shrink class="mr-3 font-weight-bold">
-                        <a>Competition</a>
-                    </v-flex>
-                    <v-flex shrink class="mr-3 font-weight-bold">
-                        <a>Seminar</a>
-                    </v-flex>
-                    <v-flex shrink>
-                        <a><v-icon>account_circle</v-icon></a>
-                    </v-flex>
-                </v-layout>
+
+                    <v-toolbar-items class="hidden-sm-and-down">
+                        <v-btn flat class="text-none" to="/competition">Competition</v-btn>
+                        <v-btn flat class="text-none" to="/seminar">Seminar</v-btn>
+                        <v-menu
+                                :close-on-content-click="false"
+                                :nudge-width="200"
+                                offset-y bottom left
+                        >
+                            <v-btn slot="activator" icon>
+                                <v-icon>account_circle</v-icon>
+                            </v-btn>
+                            <v-card>
+                                <ProfileDropdown></ProfileDropdown>
+                            </v-card>
+                        </v-menu>
+                    </v-toolbar-items>
+                    <v-toolbar-items class="hidden-md-and-up">
+                        <v-menu offset-y>
+                            <v-btn icon slot="activator"><v-icon>menu</v-icon></v-btn>
+                            <v-list>
+                                <v-list-tile to="/competition">
+                                    <v-list-tile-title>Competition</v-list-tile-title>
+                                </v-list-tile>
+                                <v-list-tile to="/seminar">
+                                    <v-list-tile-title>Seminar</v-list-tile-title>
+                                </v-list-tile>
+                                <v-list-tile to="/profile">
+                                    <v-list-tile-title>Profile</v-list-tile-title>
+                                </v-list-tile>
+                                <v-list-tile>
+                                    <v-list-tile-title>Sign out</v-list-tile-title>
+                                </v-list-tile>
+                            </v-list>
+                        </v-menu>
+                    </v-toolbar-items>
+                </v-toolbar>
             </v-flex>
         </v-layout>
-    </v-toolbar>
+    </div>
 </template>
 
 <script>
+    import ProfileDropdown from "./ProfileDropdown";
     export default {
-        name: "BLToolbar"
+        name: "BLToolbar",
+        components: {ProfileDropdown}
     }
 </script>
 

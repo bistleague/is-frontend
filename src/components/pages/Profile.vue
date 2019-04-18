@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <div>
         <BLToolbar />
         <BLSubHeader>
             <div class="headline font-weight-bold white--text mt-3 mb-3">Profile</div>
@@ -52,7 +52,7 @@
                 </v-flex>
             </v-layout>
         </v-content>
-    </v-app>
+    </div>
 </template>
 
 <script>

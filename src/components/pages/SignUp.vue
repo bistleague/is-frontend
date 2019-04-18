@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <div>
         <v-container bg fill-height grid-list-md text-xs-center>
             <v-layout row wrap align-center>
                 <v-flex>
@@ -35,7 +35,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
-    </v-app>
+    </div>
 </template>
 
 <script>

@@ -1,6 +1,8 @@
 <template>
   <transition name="fade">
-    <router-view></router-view>
+    <v-app>
+      <router-view></router-view>
+    </v-app>
   </transition>
 </template>
 
@@ -20,6 +22,7 @@
     import Semifinal from './components/pages/competition/Semifinal'
     import Final from './components/pages/competition/Final'
     import Profile from './components/pages/Profile'
+    import Competition from './components/pages/Competition'
 
     const routes = [
         {path: "/hello", component: HelloWorld},
@@ -30,6 +33,7 @@
         {path: "/competition/preliminary", component: Preliminary},
         {path: "/competition/semifinal", component: Semifinal},
         {path: "/competition/final", component: Final},
+        {path: "/competition", component: Competition},
     ];
 
     const router = new VueRouter({
