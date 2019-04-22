@@ -23,6 +23,7 @@
     import Semifinal from './components/pages/competition/Semifinal'
     import Final from './components/pages/competition/Final'
     import Profile from './components/pages/Profile'
+    import CompleteProfile from './components/pages/CompleteProfile'
     import Competition from './components/pages/Competition'
 
     const routes = [
@@ -30,6 +31,7 @@
         {path: "/login", component: Login},
         {path: "/register", component: SignUp},
         {path: "/profile", component: Profile},
+        {path: "/profile/complete", component: CompleteProfile},
         {path: "/competition/register", component: Registration},
         {path: "/competition/preliminary", component: Preliminary},
         {path: "/competition/semifinal", component: Semifinal},
