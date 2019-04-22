@@ -1,7 +1,8 @@
 <template>
   <transition name="fade">
     <v-app>
-      <router-view></router-view>
+      <v-progress-linear :indeterminate="true" class="ma-0" height="3" color="primary darken-1" v-if="loading"></v-progress-linear>
+      <router-view v-on:show-loading="showLoading" v-on:hide-loading="hideLoading"></router-view>
     </v-app>
   </transition>
 </template>
@@ -49,7 +50,40 @@
         },
         data () {
             return {
-                //
+                loading: true
+            }
+        },
+        mounted () {
+            //  [App.vue specific] When App.vue is finish loading finish the progress bar
+            this.loading = false;
+        },
+        created () {
+            this.loading = true;
+            let self = this;
+            //  hook the progress bar to start before we move router-view
+            this.$router.beforeEach((to, from, next) => {
+                //  does the page we want to go to have a meta.progress object
+                /*if (to.meta.progress !== undefined) {
+                    let meta = to.meta.progress
+                    // parse meta tags
+                    this.$Progress.parseMeta(meta)
+                }*/
+                self.showLoading();
+                next()
+            });
+
+            //  hook the progress bar to finish after we've finished moving router-view
+            this.$router.afterEach(() => {
+                //  finish the progress bar
+                self.hideLoading();
+            })
+        },
+        methods: {
+            showLoading() {
+                this.loading = true;
+            },
+            hideLoading() {
+                this.loading = false;
             }
         }
     }

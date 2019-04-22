@@ -10,15 +10,6 @@
             <SemifinalPartial :data="data" v-if="step === 3"></SemifinalPartial>
             <FinalPartial :data="data" v-if="step === 4"></FinalPartial>
         </v-content>
-
-        <v-dialog v-model="loading" hide-overlay persistent width="300">
-            <v-card color="primary" dark>
-                <v-card-text>
-                    We're preparing the form for you
-                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
     </div>
 </template>
 
@@ -53,10 +44,12 @@
             load: function() {
                 let self = this;
                 // TODO change URL
+                this.$emit("show-loading");
                 $.get("/data/competition.json").done(function(data) {
                     self.step = data.step;
                     self.data = data.data;
                     self.loading = false;
+                    self.$emit("hide-loading");
                 }).fail(function() {
                     alert("error");
                 });
