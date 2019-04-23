@@ -1,8 +1,8 @@
 <template>
   <transition name="fade">
     <v-app>
-      <div style="position: absolute; left: 0; top: 0; width: 100%;">
-        <v-progress-linear :indeterminate="true" style="width: 100%" class="ma-0" height="3" color="primary darken-1" v-if="loading"></v-progress-linear>
+      <div style="position: absolute; left: 0; top: 0; width: 100%; z-index: 1000">
+        <v-progress-linear :indeterminate="true" class="ma-0" height="3" color="primary darken-1" v-if="loading"></v-progress-linear>
       </div>
       <router-view v-on:show-loading="showLoading" v-on:hide-loading="hideLoading"></router-view>
     </v-app>
