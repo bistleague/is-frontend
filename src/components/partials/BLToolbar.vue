@@ -7,7 +7,7 @@
                         <v-img :src="require('../../assets/logo.png')" width="30"></v-img>
                     </v-toolbar-title>
                     <v-toolbar-title class="subheading font-weight-bold">
-                        BIST League 2019
+                        BIST League 2.0
                     </v-toolbar-title>
 
                     <v-spacer></v-spacer>
