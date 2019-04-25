@@ -1,0 +1,16 @@
+{
+  "gender": 0,
+  "email": "event@bistleague.com",
+  "name": "Administrator",
+  "id": "ididididid",
+  "university": null,
+  "major": null,
+  "student_id_verified": null,
+  "poe_verified": null,
+  "poe_file_id": null,
+  "email_verified": true,
+  "is_admin": true,
+  "team_id": null,
+  "mobile_no": null,
+  "student_id_file_id": null
+}
