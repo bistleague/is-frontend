@@ -30,7 +30,7 @@
             FinalPartial,
             SemifinalPartial, PreliminaryPartial, RegistrationPartial, BLSubHeader, BLStepper, BLToolbar},
         mounted: function() {
-            this.load();
+            if(this.check_auth()) this.load();
         },
         data () {
             return {
@@ -41,6 +41,14 @@
             }
         },
         methods: {
+            check_auth: function() {
+                if(!this.$store.getters.isLoggedIn) {
+                    this.$router.push('/login?continue=' + encodeURIComponent('/competition'));
+                    return false;
+                }
+
+                return true;
+            },
             load: function() {
                 let self = this;
                 // TODO change URL

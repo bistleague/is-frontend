@@ -85,6 +85,11 @@
                 }).done(function(data) {
                     let user = data.user;
                     let token = data.token;
+                    let exp = data.expires_at;
+
+                    // Commit to Vuex
+                    self.$store.commit('login', {userdata: user, jwt: token, exp: exp});
+                    self.$router.push('/competition');
 
                     self.loading = false;
                 }).fail(function(jqXHR) {
