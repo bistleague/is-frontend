@@ -68,6 +68,7 @@
             },
             submit() {
                 // Validate form
+                // TODO email validation
                 if(!this.email || !this.name || !this.password) {
                     this.show_snackbar("All fields are required", 'error');
                     return;
