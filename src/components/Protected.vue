@@ -19,7 +19,7 @@
         methods: {
             check_auth: function () {
                 if (!this.$store.getters.isLoggedIn) {
-                    this.$router.push('/login?continue=' + encodeURIComponent('/competition'));
+                    this.$router.push('/login?continue=' + encodeURIComponent(this.continue || '/competition'));
                     return;
                 }
 

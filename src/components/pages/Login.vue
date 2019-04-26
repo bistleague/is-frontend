@@ -4,12 +4,7 @@
             <v-flex>
                 <div align="center">
                     <v-card id="login-box" elevation="8">
-                        <v-alert
-                                v-model="alert"
-                                color="warning"
-                                icon="warning"
-                                dismissible
-                        >
+                        <v-alert v-model="alert" color="warning" icon="warning" dismissible>
                             <div align="left">
                                 {{error}}
                             </div>
@@ -89,13 +84,23 @@
 
                     // Commit to Vuex
                     self.$store.commit('login', {userdata: user, jwt: token, exp: exp});
-                    self.$router.push('/competition');
+                    self.$router.push(self.$route.query.continue || '/profile');
 
                     self.loading = false;
                 }).fail(function(jqXHR) {
-                    self.error = jqXHR.responseJSON.error;
                     self.alert = true;
                     self.loading = false;
+
+                    if (jqXHR.readyState === 4) {
+                        // HTTP error
+                        self.error = (jqXHR.responseJSON) ? jqXHR.responseJSON.error : "Something went wrong";
+                    } else if (jqXHR.readyState === 0) {
+                        // Network error
+                        self.error = "We can't connect to our server, please check your internet connection";
+                    } else {
+                        // something weird is happening
+                        self.error = "Something went wrong";
+                    }
                 });
             }
         }
