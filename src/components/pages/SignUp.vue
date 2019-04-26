@@ -10,7 +10,7 @@
             <v-flex>
                 <div align="center">
                     <v-card id="login-box" elevation="8">
-                        <v-form @submit.prevent="submit" ref="form" v-model="valid">
+                        <v-form @submit.prevent="submit" ref="form" v-model="valid" class="pa-4">
                             <v-img :src="require('../../assets/logo.png')" width="100"></v-img>
                             <div class="headline" style="margin-top: 24px">Sign up</div>
                             <p>Hi there! Let’s get to know you first</p>
@@ -18,6 +18,7 @@
                             <v-text-field label="Full name" v-model="name" required :rules="nameRules"></v-text-field>
                             <v-text-field label="Email address" v-model="email" required :rules="emailRules"></v-text-field>
                             <v-text-field label="Password" type="password" v-model="password" required :rules="passwordRules"></v-text-field>
+
                             <div style="height: 8px"></div>
 
                             <v-layout pa-0 fill-height>
@@ -37,6 +38,11 @@
                                 </v-flex>
                             </v-layout>
                         </v-form>
+                        <!--<div class="pa-3 pl-4 pr-4 grey lighten-4 grey--text caption">
+                            This site is protected by reCAPTCHA and the Google
+                            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                            <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                        </div>-->
                     </v-card>
                 </div>
             </v-flex>
@@ -146,6 +152,5 @@
 
     #login-box {
         max-width: 400px;
-        padding: 24px;
     }
 </style>
