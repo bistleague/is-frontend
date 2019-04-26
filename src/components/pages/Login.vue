@@ -26,7 +26,7 @@
                                         <v-layout row wrap align-center fill-height>
                                             <v-flex>
                                                 <div align="left">
-                                                    <a>Forgot password?</a>
+                                                    <router-link to="recover" style="text-decoration: none;">Forgot password?</router-link>
                                                     <br />
                                                     <router-link to="register" style="text-decoration: none;">New user? <b>Sign up</b></router-link>
                                                 </div>

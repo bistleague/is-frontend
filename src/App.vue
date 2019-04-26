@@ -20,6 +20,7 @@
     const routes = [
         {path: "/login", component: () => import('./components/pages/Login')},
         {path: "/register", component: () => import('./components/pages/SignUp')},
+        {path: "/recover", component: () => import('./components/pages/ForgotPassword')},
         {path: "/profile", component: () => import('./components/pages/Profile')},
         {path: "/profile/complete", component: () => import('./components/pages/CompleteProfile')},
         {path: "/competition/register", component: () => import('./components/pages/competition/Registration')},
