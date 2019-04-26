@@ -1,16 +1,16 @@
 <template>
     <v-container bg fill-height grid-list-md text-xs-center flex class="primary darken-1">
+        <v-snackbar v-model="snackbar" top :color="snackbar_color" multi-line>
+            {{ snackbar_text }}
+            <v-btn dark flat @click="snackbar = false">
+                Close
+            </v-btn>
+        </v-snackbar>
         <v-layout row wrap align-center>
             <v-flex>
                 <div align="center">
                     <v-card id="login-box" elevation="8">
                         <v-form @submit.prevent="login">
-                            <v-alert v-model="alert" color="warning" icon="warning" dismissible>
-                                <div align="left">
-                                    {{error}}
-                                </div>
-                            </v-alert>
-
                             <div class="pa-4">
                                 <v-img :src="require('../../assets/logo.png')" width="100"></v-img>
                                 <div class="headline" style="margin-top: 24px">Welcome!</div>
@@ -58,11 +58,17 @@
                 email: '',
                 password: '',
                 loading: false,
-                error: '',
-                alert: false
+                snackbar: false,
+                snackbar_text: '',
+                snackbar_color: 'success'
             }
         },
         methods: {
+            show_snackbar: function(text, color) {
+                this.snackbar = true;
+                this.snackbar_text = text;
+                this.snackbar_color = color;
+            },
             login() {
                 this.loading = true;
 
@@ -95,13 +101,16 @@
 
                     if (jqXHR.readyState === 4) {
                         // HTTP error
-                        self.error = (jqXHR.responseJSON) ? jqXHR.responseJSON.error : "Something went wrong";
+                        let error = (jqXHR.responseJSON) ? jqXHR.responseJSON.error : "Something went wrong";
+                        self.show_snackbar(error, 'error');
                     } else if (jqXHR.readyState === 0) {
                         // Network error
-                        self.error = "We can't connect to our server, please check your internet connection";
+                        let error = "We can't connect to our server, please check your internet connection";
+                        self.show_snackbar(error, 'error');
                     } else {
                         // something weird is happening
-                        self.error = "Something went wrong";
+                        let error = "Something went wrong";
+                        self.show_snackbar(error, 'error');
                     }
                 });
             }

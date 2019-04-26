@@ -10,14 +10,14 @@
             <v-flex>
                 <div align="center">
                     <v-card id="login-box" elevation="8">
-                        <v-form @submit.prevent="submit">
+                        <v-form @submit.prevent="submit" ref="form" v-model="valid">
                             <v-img :src="require('../../assets/logo.png')" width="100"></v-img>
                             <div class="headline" style="margin-top: 24px">Sign up</div>
                             <p>Hi there! Let’s get to know you first</p>
 
-                            <v-text-field label="Full name" v-model="name"></v-text-field>
-                            <v-text-field label="Email address" v-model="email"></v-text-field>
-                            <v-text-field label="Password" type="password" v-model="password"></v-text-field>
+                            <v-text-field label="Full name" v-model="name" required :rules="nameRules"></v-text-field>
+                            <v-text-field label="Email address" v-model="email" required :rules="emailRules"></v-text-field>
+                            <v-text-field label="Password" type="password" v-model="password" required :rules="passwordRules"></v-text-field>
                             <div style="height: 8px"></div>
 
                             <v-layout pa-0 fill-height>
@@ -51,13 +51,25 @@
         name: "SignUp",
         data() {
             return {
+                valid: false,
                 loading: false,
                 name: '',
                 email: '',
                 password: '',
                 snackbar: false,
                 snackbar_text: '',
-                snackbar_color: 'success'
+                snackbar_color: 'success',
+                nameRules: [
+                    v => !!v || 'Your name is required',
+                ],
+                emailRules: [
+                    v => !!v || 'E-mail is required',
+                    v => /.+@.+/.test(v) || 'E-mail must be valid'
+                ],
+                passwordRules: [
+                    v => !!v || 'Password is required',
+                    v => v.replace(/\s/g, "").length >= 8 || 'Password must be at least 8 characters long'
+                ],
             }
         },
         methods: {
@@ -68,7 +80,10 @@
             },
             submit() {
                 // Validate form
-                // TODO email validation
+                if (!this.$refs.form.validate()) {
+                    return;
+                }
+
                 if(!this.email || !this.name || !this.password) {
                     this.show_snackbar("All fields are required", 'error');
                     return;
