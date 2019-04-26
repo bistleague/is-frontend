@@ -15,30 +15,18 @@
 </style>
 
 <script>
-    import HelloWorld from './components/HelloWorld';
     import VueRouter from 'vue-router';
 
-    import Login from './components/pages/Login'
-    import SignUp from './components/pages/SignUp'
-    import Registration from './components/pages/competition/Registration'
-    import Preliminary from './components/pages/competition/Preliminary'
-    import Semifinal from './components/pages/competition/Semifinal'
-    import Final from './components/pages/competition/Final'
-    import Profile from './components/pages/Profile'
-    import CompleteProfile from './components/pages/CompleteProfile'
-    import Competition from './components/pages/Competition'
-
     const routes = [
-        {path: "/hello", component: HelloWorld},
-        {path: "/login", component: Login},
-        {path: "/register", component: SignUp},
-        {path: "/profile", component: Profile},
-        {path: "/profile/complete", component: CompleteProfile},
-        {path: "/competition/register", component: Registration},
-        {path: "/competition/preliminary", component: Preliminary},
-        {path: "/competition/semifinal", component: Semifinal},
-        {path: "/competition/final", component: Final},
-        {path: "/competition", component: Competition},
+        {path: "/login", component: () => import('./components/pages/Login')},
+        {path: "/register", component: () => import('./components/pages/SignUp')},
+        {path: "/profile", component: () => import('./components/pages/Profile')},
+        {path: "/profile/complete", component: () => import('./components/pages/CompleteProfile')},
+        {path: "/competition/register", component: () => import('./components/pages/competition/Registration')},
+        {path: "/competition/preliminary", component: () => import('./components/pages/competition/Preliminary')},
+        {path: "/competition/semifinal", component: () => import('./components/pages/competition/Semifinal')},
+        {path: "/competition/final", component: () => import('./components/pages/competition/Final')},
+        {path: "/competition", component: () => import('./components/pages/Competition')},
     ];
 
     const router = new VueRouter({
