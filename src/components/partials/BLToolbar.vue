@@ -41,7 +41,7 @@
                                 <v-list-tile to="/profile">
                                     <v-list-tile-title>Profile</v-list-tile-title>
                                 </v-list-tile>
-                                <v-list-tile>
+                                <v-list-tile @click="logout">
                                     <v-list-tile-title>Sign out</v-list-tile-title>
                                 </v-list-tile>
                             </v-list>
@@ -57,7 +57,13 @@
     import ProfileDropdown from "./ProfileDropdown";
     export default {
         name: "BLToolbar",
-        components: {ProfileDropdown}
+        components: {ProfileDropdown},
+        methods: {
+            logout() {
+                this.$store.commit('logout');
+                this.$router.push('/login');
+            }
+        }
     }
 </script>
 

@@ -9,42 +9,46 @@
                 <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
                     <v-layout wrap mt-5>
                         <v-flex xs12 sm12 md6 lg6 order-xs2 order-sm2 order-md1>
-                            <div class="mb-1">Full Name</div>
-                            <v-card>
-                                <v-text-field label="Full Name" single-line full-width hide-details v-model="data.name" required></v-text-field>
-                            </v-card>
-                            <div class="grey--text mt-3">Please write your full name using proper capitalization.</div>
+                            <v-form ref="form" v-model="valid">
+                                <div class="mb-1">Full Name</div>
+                                <v-card>
+                                    <v-text-field label="Full Name" single-line full-width hide-details v-model="data.name" required :rules="requiredRules"></v-text-field>
+                                </v-card>
+                                <div class="grey--text mt-3">Please write your full name using proper capitalization.</div>
 
-                            <div class="mb-1 mt-4">E-mail address</div>
-                            <v-card>
-                                <v-text-field label="email@example.com" single-line full-width hide-details v-model="data.email" required></v-text-field>
-                            </v-card>
+                                <div class="mb-1 mt-4">E-mail address</div>
+                                <v-card>
+                                    <v-text-field label="email@example.com" single-line full-width hide-details v-model="data.email" required :rules="emailRules"></v-text-field>
+                                </v-card>
 
-                            <div class="mb-1 mt-4">Mobile phone number</div>
-                            <v-card>
-                                <v-text-field label="08xxxxxxxxxx" single-line full-width hide-details v-model="data.mobile_no"></v-text-field>
-                            </v-card>
-                            <div class="grey--text mt-3">Please write your <b>mobile</b> number in all numbers (i.e. no characters or letters).</div>
+                                <div class="mb-1 mt-4">Mobile phone number</div>
+                                <v-card>
+                                    <v-text-field label="08xxxxxxxxxx" single-line full-width hide-details v-model="data.mobile_no" :rules="mobileRules"></v-text-field>
+                                </v-card>
+                                <div class="grey--text mt-3">Please write your <b>mobile</b> number in all numbers (i.e. no characters or letters).</div>
 
-                            <div class="mb-1 mt-4">Gender</div>
-                            <v-card>
-                                <v-radio-group v-model="data.gender" class="ma-0 pa-0 radio-group-full-width">
-                                    <v-radio color="primary darken-1" value="1" label="Male" class="pa-3 ma-0"></v-radio>
+                                <div class="mb-1 mt-4">Gender</div>
+                                <v-card>
+                                    <v-radio-group v-model="data.gender" class="ma-0 pa-0 radio-group-full-width">
+                                        <v-radio color="primary darken-1" value="1" label="Male" class="pa-3 ma-0"></v-radio>
+                                        <v-divider></v-divider>
+                                        <v-radio color="primary darken-1" value="2" label="Female" class="pa-3 ma-0"></v-radio>
+
+                                    </v-radio-group>
+                                </v-card>
+
+                                <div class="grey--text mt-3">Please fill the gender according to what is stated on your identity card.</div>
+
+                                <div class="mb-1 mt-4">Your study</div>
+                                <v-card>
+                                    <v-text-field label="University" full-width hide-details v-model="data.university"></v-text-field>
                                     <v-divider></v-divider>
-                                    <v-radio color="primary darken-1" value="2" label="Female" class="pa-3 ma-0"></v-radio>
+                                    <v-text-field label="Major" full-width hide-details v-model="data.major"></v-text-field>
+                                </v-card>
+                                <div class="grey--text mt-3">Please write your institution/school name without abbreviating its name and in its official name. For example, write Institut Teknologi Bandung instead of Bandung Institute of Technology.</div>
 
-                                </v-radio-group>
-                            </v-card>
-
-                            <div class="grey--text mt-3">Please fill the gender according to what is stated on your identity card.</div>
-
-                            <div class="mb-1 mt-4">Your study</div>
-                            <v-card>
-                                <v-text-field label="University" full-width hide-details v-model="data.university"></v-text-field>
-                                <v-divider></v-divider>
-                                <v-text-field label="Major" full-width hide-details v-model="data.major"></v-text-field>
-                            </v-card>
-                            <div class="grey--text mt-3">Please write your institution/school name without abbreviating its name and in its official name. For example, write Institut Teknologi Bandung instead of Bandung Institute of Technology.</div>
+                                <v-btn color="primary" block class="text-none font-weight-bold mt-4 mb-5" :loading="saving" @click="save">Save</v-btn>
+                            </v-form>
 
                             <v-snackbar v-model="snackbar" top :color="snackbar_color" multi-line>
                                 {{ snackbar_text }}
@@ -52,8 +56,6 @@
                                     Close
                                 </v-btn>
                             </v-snackbar>
-
-                            <v-btn color="primary" block class="text-none font-weight-bold mt-4 mb-5" :loading="saving" @click="save">Save</v-btn>
                         </v-flex>
                     </v-layout>
                 </v-flex>
@@ -69,18 +71,29 @@
     const $ = require("jquery");
 
     // TODO form validation
-    
+
     export default {
         name: "Profile",
         components: {Protected, BLSubHeader, BLToolbar},
         data() {
             return {
+                valid: false,
                 loading: true,
                 saving: false,
                 data: {},
                 snackbar: false,
                 snackbar_text: '',
-                snackbar_color: 'success'
+                snackbar_color: 'success',
+                requiredRules: [
+                    v => !!v || 'Field is required',
+                ],
+                emailRules: [
+                    v => !!v || 'E-mail is required',
+                    v => /.+@.+/.test(v) || 'E-mail must be valid'
+                ],
+                mobileRules: [
+                    v => /^(\s*|\d+)$/.test(v) || 'Mobile phone number must be valid'
+                ]
             }
         },
         mounted: function() {
@@ -111,6 +124,12 @@
                 });
             },
             save: function() {
+                // Validate form
+                if (!this.$refs.form.validate()) {
+                    this.show_snackbar("Incomplete and/or incorrect form", 'error');
+                    return;
+                }
+
                 let self = this;
                 this.saving = true;
                 $.ajax({

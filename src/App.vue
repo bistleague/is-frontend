@@ -28,6 +28,7 @@
         {path: "/competition/semifinal", component: () => import('./components/pages/competition/Semifinal')},
         {path: "/competition/final", component: () => import('./components/pages/competition/Final')},
         {path: "/competition", component: () => import('./components/pages/Competition')},
+        {path: "/seminar", component: () => import('./components/pages/Seminar')},
     ];
 
     const router = new VueRouter({
