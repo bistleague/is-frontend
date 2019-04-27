@@ -1,5 +1,5 @@
 <template>
-    <v-container bg fill-height grid-list-md text-xs-center flex class="primary darken-1">
+    <v-container bg fill-height grid-list-md text-xs-center flex class="primary darken-3">
         <v-layout row wrap align-center>
             <v-flex>
                 <div align="center">
@@ -43,10 +43,6 @@
 </script>
 
 <style scoped>
-    #app {
-        background-color: var(--v-primary-darken1)
-    }
-
     #login-box {
         max-width: 400px;
         padding: 24px;

@@ -1,5 +1,5 @@
 <template>
-    <v-container bg fill-height grid-list-md text-xs-center flex class="primary darken-1">
+    <v-container bg fill-height grid-list-md text-xs-center flex class="primary darken-3">
         <v-snackbar v-model="snackbar" top :color="snackbar_color" multi-line>
             {{ snackbar_text }}
             <v-btn dark flat @click="snackbar = false">
@@ -146,10 +146,6 @@
 </script>
 
 <style scoped>
-    #app {
-        background-color: var(--v-primary-darken1)
-    }
-
     #login-box {
         max-width: 400px;
     }
