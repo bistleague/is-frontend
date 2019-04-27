@@ -4,7 +4,7 @@
         <BLSubHeader v-if="!loading">
             <BLStepper :step="step" />
         </BLSubHeader>
-        <v-content class="pl-3 pr-3" v-if="!loading">
+        <v-content v-if="!loading">
             <RegistrationPartial :data="data" v-if="step === 1"></RegistrationPartial>
             <PreliminaryPartial :data="data" v-if="step === 2"></PreliminaryPartial>
             <SemifinalPartial :data="data" v-if="step === 3"></SemifinalPartial>
