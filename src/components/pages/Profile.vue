@@ -20,6 +20,10 @@
                                 <v-card>
                                     <v-text-field label="email@example.com" single-line full-width hide-details v-model="data.email" required :rules="emailRules"></v-text-field>
                                 </v-card>
+                                <div class="red--text mt-3" v-if="!data.email_verified">You haven't verified your email address. <a>Verify my address</a>.</div>
+
+                                <div class="mb-1 mt-4">Password</div>
+                                <v-btn outline block class="text-none" @click.stop="passwordDialog = true">Change your password</v-btn>
 
                                 <div class="mb-1 mt-4">Mobile phone number</div>
                                 <v-card>
@@ -61,6 +65,27 @@
                 </v-flex>
             </v-layout>
         </v-content>
+        <v-dialog v-model="passwordDialog" max-width="400">
+            <v-card>
+                <v-card-title class="subheading primary white--text">Change your password</v-card-title>
+                <v-card-text>
+                    Enter your current and new password to change your password. Your new password must have at least 8 characters.
+                    <v-sheet color="grey lighten-4" class="pa-1 mt-3 mb-1">
+                        <div class="headline font-weight-bold" align="center" style="letter-spacing: 8px !important;">{{data.invite_code}}</div>
+                    </v-sheet>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="grey darken-2" flat class="text-none" @click="passwordDialog = false">
+                        Cancel
+                    </v-btn>
+                    <v-btn color="primary" class="text-none" @click="dialog = false">
+                        Change password
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </Protected>
 </template>
 
@@ -69,14 +94,12 @@
     import BLSubHeader from "../partials/BLSubHeader";
     import Protected from "../Protected";
     const $ = require("jquery");
-
-    // TODO form validation
-
     export default {
         name: "Profile",
         components: {Protected, BLSubHeader, BLToolbar},
         data() {
             return {
+                passwordDialog: false,
                 valid: false,
                 loading: true,
                 saving: false,
