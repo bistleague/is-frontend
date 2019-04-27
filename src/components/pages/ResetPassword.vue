@@ -13,7 +13,7 @@
                         <v-form ref="form" @submit.prevent="submit" v-if="!expired && valid">
                             <v-img :src="require('../../assets/logo.png')" width="100"></v-img>
                             <div class="headline" style="margin-top: 24px">Reset your password</div>
-                            <p>Simply enter your new password and we're good to go</p>
+                            <p>Simply enter your new password and we're good to go. The password should at least be {{pass_length}} characters long.</p>
 
                             <div style="height: 24px"></div>
 
@@ -54,9 +54,10 @@
                 snackbar: false,
                 snackbar_text: '',
                 snackbar_color: 'success',
+                pass_length: parseInt(process.env.VUE_APP_PASSWORD_MIN_LENGTH),
                 passwordRules: [
                     v => !!v || 'Password is required',
-                    v => v.replace(/\s/g, "").length >= 8 || 'Password must be at least 8 characters long'
+                    v => v.replace(/\s/g, "").length >= this.pass_length || `Password must be at least ${this.pass_length} characters long`
                 ],
                 rePasswordRules: [
                     v => !!v || 'Password is required',

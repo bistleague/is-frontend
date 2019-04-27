@@ -65,6 +65,7 @@
                 snackbar: false,
                 snackbar_text: '',
                 snackbar_color: 'success',
+                pass_length: parseInt(process.env.VUE_APP_PASSWORD_MIN_LENGTH),
                 nameRules: [
                     v => !!v || 'Your name is required',
                 ],
@@ -74,7 +75,7 @@
                 ],
                 passwordRules: [
                     v => !!v || 'Password is required',
-                    v => v.replace(/\s/g, "").length >= 8 || 'Password must be at least 8 characters long'
+                    v => v.replace(/\s/g, "").length >= this.pass_length || `Password must be at least ${this.pass_length} characters long`
                 ],
             }
         },

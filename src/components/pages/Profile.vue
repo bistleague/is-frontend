@@ -80,7 +80,7 @@
                                 </v-card>
                                 <v-divider></v-divider>
                                 <v-form ref="chgpass" class="pa-3" @submit.prevent="change_password">
-                                    Enter your current and new password to change your password. Your new password must have at least 8 characters.
+                                    Enter your current and new password to change your password. Your new password must have at least {{pass_length}} characters.
                                     <v-text-field label="Current password" type="password" class="mt-3" v-model="oldPassword" :rules="passwordRules"></v-text-field>
                                     <v-text-field label="New password" type="password" class="mt-1" v-model="newPassword" :rules="passwordRules"></v-text-field>
                                     <v-text-field label="Repeat new password" type="password" class="mt-1" v-model="reNewPassword" :rules="rePasswordRules"></v-text-field>
@@ -123,6 +123,7 @@
                 snackbar_text: '',
                 snackbar_color: 'success',
                 tab: null,
+                pass_length: parseInt(process.env.VUE_APP_PASSWORD_MIN_LENGTH),
                 requiredRules: [
                     v => !!v || 'Field is required',
                 ],
@@ -138,7 +139,7 @@
                 reNewPassword: '',
                 passwordRules: [
                     v => !!v || 'Password is required',
-                    v => v.replace(/\s/g, "").length >= 8 || 'Password must be at least 8 characters long'
+                    v => v.replace(/\s/g, "").length >= this.pass_length || `Password must be at least ${this.pass_length} characters long`
                 ],
                 rePasswordRules: [
                     v => !!v || 'Password is required',
