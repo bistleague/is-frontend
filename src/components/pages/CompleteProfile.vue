@@ -5,46 +5,42 @@
             <div class="headline font-weight-bold white--text mt-3 mb-3">Complete Your Profile</div>
         </BLSubHeader>
         <v-content class="pl-3 pr-3">
-            <v-layout v-if="!loading">
-                <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
-                    <v-layout wrap mt-5>
-                        <v-flex xs12 sm6 offset-sm3>
-                            <v-form @submit.prevent="save" v-model="valid" ref="form">
-                                <div class="headline font-weight-bold grey--text text--darken-1">Hi, {{data.name}}!</div>
-                                <p class="mt-3 grey--text text--darken-1">We promise we’ll make this quick, but we need you to complete your profile first.</p>
+            <BLCenterWrap v-if="!loading">
+                <v-layout wrap mt-5>
+                    <v-flex xs12 sm6 offset-sm3>
+                        <v-form @submit.prevent="save" v-model="valid" ref="form">
+                            <div class="headline font-weight-bold grey--text text--darken-1">Hi, {{data.name}}!</div>
+                            <p class="mt-3 grey--text text--darken-1">We promise we’ll make this quick, but we need you to complete your profile first.</p>
 
-                                <div class="mb-1 mt-4">Mobile phone number</div>
-                                <v-card>
-                                    <v-text-field label="08xxxxxxxxxx" single-line full-width hide-details v-model="data.mobile_no" required :rules="mobileRules"></v-text-field>
-                                </v-card>
-                                <div class="grey--text mt-3">Please write your <b>mobile</b> number in all numbers (i.e. no characters or letters).</div>
+                            <div class="mb-1 mt-4">Mobile phone number</div>
+                            <v-text-field solo label="08xxxxxxxxxx" single-line v-model="data.mobile_no" :rules="mobileRules" persistent-hint
+                                          hint="Please write your <b>mobile</b> number in all numbers (i.e. no characters or letters)."></v-text-field>
 
-                                <div class="mb-1 mt-4">Gender</div>
-                                <v-card>
-                                    <v-radio-group v-model="data.gender" class="ma-0 pa-0 radio-group-full-width" required :rules="requiredRules">
-                                        <v-radio color="primary darken-1" value="1" label="Male" class="pa-3 ma-0"></v-radio>
-                                        <v-divider></v-divider>
-                                        <v-radio color="primary darken-1" value="2" label="Female" class="pa-3 ma-0"></v-radio>
-
-                                    </v-radio-group>
-                                </v-card>
-
-                                <div class="grey--text mt-3">Please fill the gender according to what is stated on your identity card.</div>
-
-                                <div class="mb-1 mt-4">Your study</div>
-                                <v-card>
-                                    <v-text-field label="University" full-width hide-details v-model="data.university" required :rules="requiredRules"></v-text-field>
+                            <div class="mb-1 mt-4">Gender</div>
+                            <v-card>
+                                <v-radio-group v-model="data.gender" class="ma-0 pa-0 radio-group-full-width" :rules="requiredRules">
+                                    <v-radio color="primary darken-1" value="1" label="Male" class="pa-3 ma-0"></v-radio>
                                     <v-divider></v-divider>
-                                    <v-text-field label="Major" full-width hide-details v-model="data.major" required :rules="requiredRules"></v-text-field>
-                                </v-card>
-                                <div class="grey--text mt-3">Please write your institution/school name without abbreviating its name and  in its official name. For example, write Institut Teknologi Bandung instead of Bandung Institute of Technology.</div>
+                                    <v-radio color="primary darken-1" value="2" label="Female" class="pa-3 ma-0"></v-radio>
 
-                                <v-btn color="primary" block class="text-none font-weight-bold mt-4 mb-5" type="submit" :loading="saving">Continue</v-btn>
-                            </v-form>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-            </v-layout>
+                                </v-radio-group>
+                            </v-card>
+
+                            <div class="grey--text text--darken-1 mt-2 pl-3 pr-3 caption">Please fill the gender according to what is stated on your identity card.</div>
+
+                            <div class="mb-1 mt-4">Your study</div>
+                            <v-card>
+                                <v-text-field label="University" full-width hide-details v-model="data.university" :rules="requiredRules"></v-text-field>
+                                <v-divider></v-divider>
+                                <v-text-field label="Major" full-width hide-details v-model="data.major" :rules="requiredRules"></v-text-field>
+                            </v-card>
+                            <div class="grey--text text--darken-1 mt-2 pl-3 pr-3 caption">Please write your institution/school name without abbreviating its name and in its official name. For example, write Institut Teknologi Bandung instead of Bandung Institute of Technology.</div>
+
+                            <v-btn color="primary" block class="text-none font-weight-bold mt-4 mb-5" type="submit" :loading="saving">Continue</v-btn>
+                        </v-form>
+                    </v-flex>
+                </v-layout>
+            </BLCenterWrap>
         </v-content>
         <v-snackbar v-model="snackbar" top :color="snackbar_color" multi-line>
             {{ snackbar_text }}
@@ -58,11 +54,12 @@
 <script>
     import BLToolbar from "../partials/BLToolbar";
     import BLSubHeader from "../partials/BLSubHeader";
+    import BLCenterWrap from "../partials/BLCenterWrap";
     const $ = require("jquery");
 
     export default {
         name: "CompleteProfile",
-        components: {BLSubHeader, BLToolbar},
+        components: {BLCenterWrap, BLSubHeader, BLToolbar},
         data() {
             return {
                 valid: false,

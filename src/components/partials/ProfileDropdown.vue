@@ -10,7 +10,7 @@
         </v-list>
         <v-divider></v-divider>
         <v-list>
-            <v-list-tile to="/profile">
+            <v-list-tile to="/profile" exact>
                 <v-list-tile-title>View profile</v-list-tile-title>
             </v-list-tile>
             <v-list-tile @click="logout">

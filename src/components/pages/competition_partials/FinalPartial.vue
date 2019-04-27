@@ -1,16 +1,15 @@
 <template>
-    <v-layout>
-        <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
-            <FinalAwait :qualified="data.qualified" :team-name="data.team_name"></FinalAwait>
-        </v-flex>
-    </v-layout>
+    <BLCenterWrap>
+        <FinalAwait :qualified="data.qualified" :team-name="data.team_name"></FinalAwait>
+    </BLCenterWrap>
 </template>
 
 <script>
     import FinalAwait from "../../partials/competition/FinalAwait";
+    import BLCenterWrap from "../../partials/BLCenterWrap";
     export default {
         name: "FinalPartial",
-        components: {FinalAwait},
+        components: {BLCenterWrap, FinalAwait},
         props: ["data"]
     }
 </script>

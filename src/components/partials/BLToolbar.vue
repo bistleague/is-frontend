@@ -32,13 +32,13 @@
                         <v-menu offset-y>
                             <v-btn icon slot="activator"><v-icon>menu</v-icon></v-btn>
                             <v-list>
-                                <v-list-tile to="/competition">
+                                <v-list-tile to="/competition" exact>
                                     <v-list-tile-title>Competition</v-list-tile-title>
                                 </v-list-tile>
-                                <v-list-tile to="/seminar">
+                                <v-list-tile to="/seminar" exact>
                                     <v-list-tile-title>Seminar</v-list-tile-title>
                                 </v-list-tile>
-                                <v-list-tile to="/profile">
+                                <v-list-tile to="/profile" exact>
                                     <v-list-tile-title>Profile</v-list-tile-title>
                                 </v-list-tile>
                                 <v-list-tile @click="logout">
