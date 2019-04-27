@@ -4,7 +4,7 @@
         <BLSubHeader>
             <div class="headline font-weight-bold white--text mt-3 mb-3">Seminar</div>
         </BLSubHeader>
-        <v-content class="pl-3 pr-3">
+        <v-content>
             <BLCenterWrap v-if="!loading">
                 <v-layout wrap class="mt-4">
                     <v-flex xs12 sm6 offset-sm3>
