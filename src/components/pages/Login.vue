@@ -96,7 +96,6 @@
 
                     self.loading = false;
                 }).fail(function(jqXHR) {
-                    self.alert = true;
                     self.loading = false;
 
                     if (jqXHR.readyState === 4) {

@@ -22,6 +22,7 @@
         {path: "/register", component: () => import('./components/pages/SignUp')},
         {path: "/recover", component: () => import('./components/pages/ForgotPassword')},
         {path: "/reset", component: () => import('./components/pages/ResetPassword')},
+        {path: "/email/verify", component: () => import('./components/pages/VerifyEmail')},
         {path: "/profile", component: () => import('./components/pages/Profile')},
         {path: "/profile/complete", component: () => import('./components/pages/CompleteProfile')},
         {path: "/competition/register", component: () => import('./components/pages/competition/Registration')},
