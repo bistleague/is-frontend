@@ -132,7 +132,7 @@
                     v => /.+@.+/.test(v) || 'E-mail must be valid'
                 ],
                 mobileRules: [
-                    v => /^(\s*|\d+)$/.test(v) || 'Mobile phone number must be valid'
+                    v => (/^[0-9]+$|^$/.test(v) || !v) || 'Mobile phone number must be valid'
                 ],
                 oldPassword: '',
                 newPassword: '',
@@ -212,7 +212,33 @@
                 });
             },
             send_verification_mail: function() {
-                this.email_verify_sent = true;
+                let self = this;
+                this.email_verifying = true;
+                this.email_verify_sent = false;
+                $.ajax({
+                    headers: {'Authorization': `Bearer ${self.$store.getters.jwt}`},
+                    type: 'POST',
+                    url: `${process.env.VUE_APP_API_BASE_URL}/v1/user/email_verify`
+                }).done(function() {
+                    self.email_verifying = false;
+                    self.email_verify_sent = true;
+                }).fail(function(jqXHR) {
+                    self.email_verifying = false;
+
+                    if (jqXHR.readyState === 4) {
+                        // HTTP error
+                        const error = (jqXHR.responseJSON) ? jqXHR.responseJSON.error : "Something went wrong";
+                        self.show_snackbar(error, 'error');
+                    } else if (jqXHR.readyState === 0) {
+                        // Network error
+                        const error = "We can't connect to our server, please check your internet connection";
+                        self.show_snackbar(error, 'error');
+                    } else {
+                        // something weird is happening
+                        const error = "Something went wrong";
+                        self.show_snackbar(error, 'error');
+                    }
+                });
             },
             change_password: function() {
                 // Validate form

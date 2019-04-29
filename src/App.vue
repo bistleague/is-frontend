@@ -29,6 +29,7 @@
         {path: "/competition/preliminary", component: () => import('./components/pages/competition/Preliminary')},
         {path: "/competition/semifinal", component: () => import('./components/pages/competition/Semifinal')},
         {path: "/competition/final", component: () => import('./components/pages/competition/Final')},
+        {path: "/competition/noteam", component: () => import('./components/pages/competition/NoTeam')},
         {path: "/competition", component: () => import('./components/pages/Competition')},
         {path: "/seminar", component: () => import('./components/pages/Seminar')},
     ];

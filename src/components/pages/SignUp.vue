@@ -9,8 +9,8 @@
         <v-layout row wrap align-center>
             <v-flex>
                 <div align="center">
-                    <v-card id="login-box" elevation="8">
-                        <v-form @submit.prevent="submit" ref="form" v-model="valid" class="pa-4">
+                    <v-card id="login-box" elevation="8" class="pa-4">
+                        <v-form @submit.prevent="submit" ref="form" v-model="valid" v-if="!success">
                             <v-img :src="require('../../assets/logo.png')" width="100"></v-img>
                             <div class="headline" style="margin-top: 24px">Sign up</div>
                             <p>Hi there! Let’s get to know you first</p>
@@ -38,6 +38,13 @@
                                 </v-flex>
                             </v-layout>
                         </v-form>
+                        <div v-if="success">
+                            <v-img :src="require('../../assets/logo.png')" width="100"></v-img>
+
+                            <div class="headline" style="margin-top: 24px">You're good to go!</div>
+                            <p class="mt-3">We have successfully registered your account. <br/><b>Please check your email and click the link to verify your email address</b>.</p>
+                            <v-btn block outline to="/login" color="primary" class="mt-3">Login</v-btn>
+                        </div>
                         <!--<div class="pa-3 pl-4 pr-4 grey lighten-4 grey--text caption">
                             This site is protected by reCAPTCHA and the Google
                             <a href="https://policies.google.com/privacy">Privacy Policy</a> and
@@ -59,6 +66,7 @@
             return {
                 valid: false,
                 loading: false,
+                success: false,
                 name: '',
                 email: '',
                 password: '',
@@ -86,6 +94,11 @@
                 this.snackbar_color = color;
             },
             submit() {
+                // If still loading, return
+                if(this.loading) {
+                    return;
+                }
+
                 // Validate form
                 if (!this.$refs.form.validate()) {
                     return;
@@ -113,15 +126,8 @@
                     type: 'POST',
                     url: `${process.env.VUE_APP_API_BASE_URL}/v1/account/create`
                 }).done(function() {
-                    // Registration OK, go to login page
-                    // Show success snackbar
-                    self.show_snackbar("Registration success! Redirecting you in 3 seconds", 'success');
-
-                    // Redirect in 3 seconds
-                    setTimeout(function() {
-                        self.$router.push(self.$route.query.continue || '/login');
-                    }, 3000);
-
+                    // Registration OK
+                    self.success = true;
                     self.loading = false;
                 }).fail(function(jqXHR) {
                     self.alert = true;
