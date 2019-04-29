@@ -9,10 +9,10 @@
                 <v-tabs v-model="tab" color="primary darken-1" dark>
                     <v-tabs-slider color="yellow"></v-tabs-slider>
 
-                    <v-tab key="profile" class="font-weight-bold text-none">
+                    <v-tab @click.prevent="$router.push('/profile')" class="font-weight-bold text-none">
                         My Profile
                     </v-tab>
-                    <v-tab key="account" class="font-weight-bold text-none">
+                    <v-tab @click.prevent="$router.push('/profile/account')" class="font-weight-bold text-none">
                         Account
                     </v-tab>
                 </v-tabs>
@@ -149,6 +149,11 @@
         },
         mounted: function() {
             this.load();
+        },
+        watch:{
+            $route (to){
+                this.tab = (to.path === '/profile/account') ? 1 : 0
+            }
         },
         methods: {
             show_snackbar: function(text, color) {

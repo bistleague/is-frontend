@@ -12,14 +12,12 @@
 
 <script>
     import BLToolbar from "../../partials/BLToolbar";
-    import BLStepper from "../../partials/BLStepper";
     import BLSubHeader from "../../partials/BLSubHeader";
     import NoTeamPartial from "../competition_partials/NoTeamPartial";
-    const $ = require("jquery");
 
     export default {
         name: "Final",
-        components: {NoTeamPartial, BLSubHeader, BLToolbar, BLStepper},
+        components: {NoTeamPartial, BLSubHeader, BLToolbar},
     }
 </script>
 
