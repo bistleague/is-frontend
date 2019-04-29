@@ -122,7 +122,7 @@
                 snackbar: false,
                 snackbar_text: '',
                 snackbar_color: 'success',
-                tab: null,
+                tab: (this.$router.currentRoute.path === '/profile/account') ? 1 : 0,
                 pass_length: parseInt(process.env.VUE_APP_PASSWORD_MIN_LENGTH),
                 requiredRules: [
                     v => !!v || 'Field is required',

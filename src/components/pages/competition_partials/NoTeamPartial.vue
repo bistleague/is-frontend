@@ -47,13 +47,11 @@
 </template>
 
 <script>
-    import SemifinalAwait from "../../partials/competition/SemifinalAwait";
-    import SemifinalClosed from "../../partials/competition/SemifinalClosed";
     import BLCenterWrap from "../../partials/BLCenterWrap";
 
     export default {
         name: "NoTeamPartial",
-        components: {BLCenterWrap, SemifinalClosed, SemifinalAwait},
+        components: {BLCenterWrap},
         methods: {
         }
     }
