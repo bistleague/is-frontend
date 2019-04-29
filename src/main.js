@@ -7,7 +7,6 @@ import './stylus/main.styl';
 import Vuex from 'vuex'
 
 Vue.config.productionTip = false;
-Vue.use(VueRouter);
 Vue.use(Vuex);
 
 const vuexPersist = new VuexPersist({
@@ -59,8 +58,55 @@ const store = new Vuex.Store({
     }
 });
 
+
+const routes = [
+    {path: "/login", component: () => import('./components/pages/Login')},
+    {path: "/register", component: () => import('./components/pages/SignUp')},
+    {path: "/recover", component: () => import('./components/pages/ForgotPassword')},
+    {path: "/reset", component: () => import('./components/pages/ResetPassword')},
+    {path: "/email/verify", component: () => import('./components/pages/VerifyEmail')},
+    {path: "/profile", alias:["/profile/account"], meta: {auth: true, admin: false}, component: () => import('./components/pages/Profile')},
+    {path: "/profile/complete", meta: {auth: true, admin: false}, component: () => import('./components/pages/CompleteProfile')},
+    {path: "/competition/register", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Registration')},
+    {path: "/competition/preliminary", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Preliminary')},
+    {path: "/competition/semifinal", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Semifinal')},
+    {path: "/competition/final", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Final')},
+    {path: "/competition/noteam", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/NoTeam')},
+    {path: "/competition", meta: {auth: true, admin: false}, component: () => import('./components/pages/Competition')},
+    {path: "/seminar", meta: {auth: true, admin: false}, component: () => import('./components/pages/Seminar')},
+];
+
+const router = new VueRouter({
+    routes: routes,
+    mode: 'history',
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.auth) {
+        // This route requires auth, check if logged in. Else, redirect to login
+        if (!store.getters.isLoggedIn) {
+            next({ path: `/login?continue=${to.path}` });
+            return;
+        }
+
+        // User logged in
+        // Check if has admin access is requested AND fulfilled
+        if(to.meta.admin && this.$store.getters.user.is_admin !== true) {
+            next({ path: `/unauthorized` });
+            return;
+        }
+
+        next();
+    } else {
+        next(); // does not require auth, make sure to always call next()!
+    }
+});
+
+Vue.use(VueRouter);
+
 new Vue({
     store,
+    router,
     render: h => h(App),
 }).$mount('#app');
 

@@ -15,33 +15,8 @@
 </style>
 
 <script>
-    import VueRouter from 'vue-router';
-
-    const routes = [
-        {path: "/login", component: () => import('./components/pages/Login')},
-        {path: "/register", component: () => import('./components/pages/SignUp')},
-        {path: "/recover", component: () => import('./components/pages/ForgotPassword')},
-        {path: "/reset", component: () => import('./components/pages/ResetPassword')},
-        {path: "/email/verify", component: () => import('./components/pages/VerifyEmail')},
-        {path: "/profile", alias:["/profile/account"],  component: () => import('./components/pages/Profile')},
-        {path: "/profile/complete", component: () => import('./components/pages/CompleteProfile')},
-        {path: "/competition/register", component: () => import('./components/pages/competition/Registration')},
-        {path: "/competition/preliminary", component: () => import('./components/pages/competition/Preliminary')},
-        {path: "/competition/semifinal", component: () => import('./components/pages/competition/Semifinal')},
-        {path: "/competition/final", component: () => import('./components/pages/competition/Final')},
-        {path: "/competition/noteam", component: () => import('./components/pages/competition/NoTeam')},
-        {path: "/competition", component: () => import('./components/pages/Competition')},
-        {path: "/seminar", component: () => import('./components/pages/Seminar')},
-    ];
-
-    const router = new VueRouter({
-        routes: routes,
-        mode: 'history',
-    });
-
     export default {
         name: 'App',
-        router,
         components: {
 
         },
@@ -51,29 +26,22 @@
             }
         },
         mounted () {
-            //  [App.vue specific] When App.vue is finish loading finish the progress bar
             this.loading = false;
         },
         created () {
             this.loading = true;
             let self = this;
-            //  hook the progress bar to start before we move router-view
+            // Hook to show progress bar
             this.$router.beforeEach((to, from, next) => {
-                //  does the page we want to go to have a meta.progress object
-                /*if (to.meta.progress !== undefined) {
-                    let meta = to.meta.progress
-                    // parse meta tags
-                    this.$Progress.parseMeta(meta)
-                }*/
                 self.showLoading();
-                next()
+                next();
             });
 
-            //  hook the progress bar to finish after we've finished moving router-view
+            // Hook to hide progress bar
             this.$router.afterEach(() => {
                 //  finish the progress bar
                 self.hideLoading();
-            })
+            });
         },
         methods: {
             showLoading() {

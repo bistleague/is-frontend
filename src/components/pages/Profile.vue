@@ -1,5 +1,5 @@
 <template>
-    <Protected continue="/profile">
+    <div>
         <BLToolbar />
         <BLSubHeader>
             <div class="headline font-weight-bold white--text mt-3 mb-3">Profile</div>
@@ -9,10 +9,10 @@
                 <v-tabs v-model="tab" color="primary darken-1" dark>
                     <v-tabs-slider color="yellow"></v-tabs-slider>
 
-                    <v-tab @click.prevent="$router.push('/profile')" class="font-weight-bold text-none">
+                    <v-tab @click="$router.push('/profile')" key="profile" class="font-weight-bold text-none">
                         My Profile
                     </v-tab>
-                    <v-tab @click.prevent="$router.push('/profile/account')" class="font-weight-bold text-none">
+                    <v-tab @click="$router.push('/profile/account')" key="account" class="font-weight-bold text-none">
                         Account
                     </v-tab>
                 </v-tabs>
@@ -99,18 +99,17 @@
                 Close
             </v-btn>
         </v-snackbar>
-    </Protected>
+    </div>
 </template>
 
 <script>
     import BLToolbar from "../partials/BLToolbar";
     import BLSubHeader from "../partials/BLSubHeader";
-    import Protected from "../Protected";
     import BLCenterWrap from "../partials/BLCenterWrap";
     const $ = require("jquery");
     export default {
         name: "Profile",
-        components: {BLCenterWrap, Protected, BLSubHeader, BLToolbar},
+        components: {BLCenterWrap, BLSubHeader, BLToolbar},
         data() {
             return {
                 loading: true,
