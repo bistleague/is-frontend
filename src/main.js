@@ -3,10 +3,13 @@ import './plugins/vuetify'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import VuexPersist from 'vuex-persist'
+import VueAnalytics from 'vue-analytics'
 import './stylus/main.styl';
 import Vuex from 'vuex'
 
 Vue.config.productionTip = false;
+
+// Setup Vuex
 Vue.use(Vuex);
 
 const vuexPersist = new VuexPersist({
@@ -58,7 +61,7 @@ const store = new Vuex.Store({
     }
 });
 
-
+// Setup routes
 const routes = [
     {path: "/login", component: () => import('./components/pages/Login')},
     {path: "/register", component: () => import('./components/pages/SignUp')},
@@ -103,6 +106,14 @@ router.beforeEach((to, from, next) => {
 });
 
 Vue.use(VueRouter);
+
+// Setup Google Analytics
+if(process.env.VUE_APP_GA_ID) {
+    Vue.use(VueAnalytics, {
+        id: process.env.VUE_APP_GA_ID,
+        router
+    });
+}
 
 new Vue({
     store,
