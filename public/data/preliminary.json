@@ -6,7 +6,7 @@
   "case_url": "http://files.bistleague.com/public/preliminary.pdf",
   "submission": {
     "uploaded": true,
-    "closed": true,
+    "closed": false,
     "file_url": "http://files.bistleague.com/v/py/CASE.pptx",
     "filename": "CASE.pptx",
     "last_submitted_by": "Muhammad Aditya Hilmy",
