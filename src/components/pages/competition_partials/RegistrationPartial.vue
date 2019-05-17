@@ -199,6 +199,7 @@
                 <div class="headline font-weight-bold">Welcome aboard!</div>
                 <p class="mt-3">Your journey of participating in BIST League 2.0 begins here. Kindly fill in all the information required in the form.</p>
                 <p>You can freely change your registration data before the deadline is up. Just click "Save" when you make any changes. Don't worry if the status of your application is still pending when the deadline is up, we'll still receive it.</p>
+                <v-img :src="require('../../../assets/welcome.svg')"></v-img>
             </v-flex>
         </v-layout>
     </BLCenterWrap>

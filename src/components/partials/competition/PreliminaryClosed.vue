@@ -5,6 +5,7 @@
                 <div class="mt-4" align="center">
                     <div class="headline">Hang on tight</div>
                     <p class="mt-3 title">Sit back and relax while we're reviewing your submissions. We'll let you know when the results are in.</p>
+                    <v-img :src="require('../../../assets/scoring.svg')"></v-img>
                 </div>
             </v-flex>
         </v-layout>

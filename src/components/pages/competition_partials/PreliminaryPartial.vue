@@ -3,7 +3,7 @@
         <PreliminaryAwait :team-name="data.team_name" v-if="!data.started && !data.stage_closed"></PreliminaryAwait>
         <PreliminaryClosed v-if="data.stage_closed"></PreliminaryClosed>
         <v-layout wrap mt-5 v-if="data.started && !data.stage_closed">
-            <v-flex xs12 sm12 md5 lg5 order-xs2 order-sm2 order-md1>
+            <v-flex xs12 sm12 md5 lg5>
                 <div class="headline font-weight-bold grey--text text--darken-1">Preliminary Round</div>
                 <p class="mt-3 grey--text text--darken-1">Welcome to Preliminary Round! You are given a case, which you can download by clicking the button below, and you'll need to make a presentation with an audio narration talking about the case.</p>
 
@@ -57,9 +57,9 @@
                     </div>
                 </v-card>
             </v-flex>
-            <v-flex xs1 sm1 md1 lg1 order-xs3 order-sm3 order-md2></v-flex>
-            <v-flex xs12 sm12 md6 lg6 order-xs1 order-sm1 order-md3 class="grey--text text--darken-1">
-
+            <v-flex xs1 sm1 md1 lg1></v-flex>
+            <v-flex xs12 sm12 md6 lg6 py-4 class="grey--text text--darken-1">
+                <v-img :src="require('../../../assets/submission.svg')"></v-img>
             </v-flex>
         </v-layout>
     </BLCenterWrap>
