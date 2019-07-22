@@ -53,13 +53,20 @@
                 let self = this;
                 // TODO change URL
                 this.$emit("show-loading");
-                $.get("/data/competition.json").done(function(data) {
+
+                $.ajax({
+                    contentType: 'application/json',
+                    headers: {'Authorization': `Bearer ${self.$store.getters.jwt}`},
+                    type: 'GET',
+                    url: `${process.env.VUE_APP_API_BASE_URL}/v1/competition`
+                }).done(function(data) {
                     self.step = data.step;
                     self.data = data.data;
                     self.loading = false;
                     self.$emit("hide-loading");
                 }).fail(function() {
-                    alert("error");
+                    // TODO show error
+                    self.$emit("hide-loading");
                 });
             }
         }
