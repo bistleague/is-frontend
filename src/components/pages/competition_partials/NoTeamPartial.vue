@@ -17,7 +17,7 @@
 
                     <v-divider></v-divider>
                     <v-card-actions>
-                        <v-btn flat block class="text-none text-md-left px-2">
+                        <v-btn flat block class="text-none text-md-left px-2" :disabled="creatingTeam" v-on:click="createTeam">
                             Create
                             <v-spacer></v-spacer>
                             <v-icon right dark>arrow_forward</v-icon>
@@ -48,11 +48,35 @@
 
 <script>
     import BLCenterWrap from "../../partials/BLCenterWrap";
+    const $ = require('jquery');
 
     export default {
         name: "NoTeamPartial",
         components: {BLCenterWrap},
+        data() {
+            return {
+                creatingTeam: false
+            }
+        },
         methods: {
+            createTeam() {
+                const self = this;
+                self.creatingTeam = true;
+
+                this.$emit("show-loading");
+                $.ajax({
+                    headers: {'Authorization': `Bearer ${self.$store.getters.jwt}`},
+                    type: 'POST',
+                    url: `${process.env.VUE_APP_API_BASE_URL}/v1/competition/team`
+                }).done(function() {
+                    self.creatingTeam = false;
+                    self.$emit("hide-loading");
+                    self.$emit("competition-refetch");
+                }).fail(function() {
+                    // TODO show error
+                    self.$emit("hide-loading");
+                });
+            }
         }
     }
 </script>

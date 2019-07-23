@@ -4,7 +4,8 @@
         <BLSubHeader v-if="!loading">
             <BLStepper :step="step" />
         </BLSubHeader>
-        <v-content v-if="!loading">
+        <v-content v-if="!loading" v-on:competition-refetch="load">
+            <NoTeamPartial :data="data" v-if="step === 0"></NoTeamPartial>
             <RegistrationPartial :data="data" v-if="step === 1"></RegistrationPartial>
             <PreliminaryPartial :data="data" v-if="step === 2"></PreliminaryPartial>
             <SemifinalPartial :data="data" v-if="step === 3"></SemifinalPartial>
@@ -21,12 +22,14 @@
     import PreliminaryPartial from "./competition_partials/PreliminaryPartial";
     import SemifinalPartial from "./competition_partials/SemifinalPartial";
     import FinalPartial from "./competition_partials/FinalPartial";
+    import NoTeamPartial from "./competition_partials/NoTeamPartial";
     const $ = require("jquery");
 
 
     export default {
         name: "Competition",
         components: {
+            NoTeamPartial,
             FinalPartial,
             SemifinalPartial, PreliminaryPartial, RegistrationPartial, BLSubHeader, BLStepper, BLToolbar},
         mounted: function() {
