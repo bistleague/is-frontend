@@ -43,6 +43,25 @@
                 </v-card>
             </v-flex>
         </v-layout>
+        <v-dialog
+                v-model="creatingTeam"
+                persistent
+                width="300"
+        >
+            <v-card
+                    color="primary"
+                    dark
+            >
+                <v-card-text>
+                    Please wait while we're creating your team
+                    <v-progress-linear
+                            indeterminate
+                            color="white"
+                            class="mb-0"
+                    ></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </BLCenterWrap>
 </template>
 
@@ -69,7 +88,6 @@
                     type: 'POST',
                     url: `${process.env.VUE_APP_API_BASE_URL}/v1/competition/team`
                 }).done(function() {
-                    self.creatingTeam = false;
                     self.$emit("hide-loading");
                     self.$emit("competition-refetch");
                 }).fail(function() {

@@ -1,12 +1,18 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <BLCenterWrap>
+        <v-snackbar v-model="snackbar" top :color="snackbar_color" multi-line>
+            {{ snackbar_text }}
+            <v-btn dark flat @click="snackbar = false">
+                Close
+            </v-btn>
+        </v-snackbar>
         <v-layout wrap mt-5>
             <v-flex xs12 sm12 md5 lg5 order-xs2 order-sm2 order-md1>
                 <div class="mb-1 grey--text">Team Name</div>
-                <v-text-field label="Team Name" solo :value="data.team_name"></v-text-field>
+                <v-text-field label="Team Name" solo v-model="teamName"></v-text-field>
 
                 <div class="mb-1 grey--text">University</div>
-                <v-text-field label="University" solo :value="data.university"></v-text-field>
+                <v-text-field label="University" solo v-model="university"></v-text-field>
 
                 <div class="mb-1 grey--text">Team Members</div>
 
@@ -192,7 +198,7 @@
                     </v-card-text>
                 </v-card>
 
-                <v-btn block color="primary" class="text-none mt-4">Save</v-btn>
+                <v-btn block color="primary" class="text-none mt-4" v-on:click="saveChanges" :loading="saving">Save</v-btn>
             </v-flex>
             <v-flex xs1 sm1 md1 lg1 order-xs3 order-sm3 order-md2></v-flex>
             <v-flex xs12 sm12 md6 lg6 order-xs1 order-sm1 order-md3 class="grey--text text--darken-1">
@@ -207,15 +213,58 @@
 
 <script>
     import BLCenterWrap from "../../partials/BLCenterWrap";
+    const $ = require('jquery');
+
     export default {
         name: "RegistrationPartial",
         components: {BLCenterWrap},
         props: ["data"],
+        mounted() {
+            this.teamName = this.data.team_name;
+            this.university = this.data.university;
+        },
         data () {
             return {
-                dialog: false
+                dialog: false,
+                saving: false,
+                teamName: '',
+                university: '',
+                snackbar: false,
+                snackbar_text: '',
+                snackbar_color: 'success'
             }
         },
+        methods: {
+            saveChanges() {
+                const self = this;
+
+                const payload = JSON.stringify({
+                    name: this.teamName,
+                    university: this.university
+                });
+
+                this.saving = true;
+                $.ajax({
+                    headers: {'Authorization': `Bearer ${self.$store.getters.jwt}`},
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: payload,
+                    dataType: 'json',
+                    url: `${process.env.VUE_APP_API_BASE_URL}/v1/competition/team`
+                }).done(function() {
+                    self.show_snackbar("Changes saved!", "success");
+                    self.saving = false;
+                }).fail(function(e) {
+                    self.show_snackbar(`Error: ${e.toString()}`, "error");
+                    self.saving = false;
+                });
+            },
+            show_snackbar(text, color) {
+                this.snackbar = true;
+                this.snackbar_text = text;
+                this.snackbar_color = color;
+            },
+        }
     }
 </script>
 
