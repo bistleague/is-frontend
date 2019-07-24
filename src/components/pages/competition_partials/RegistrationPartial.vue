@@ -46,10 +46,11 @@
                                             </v-flex>
                                         </v-layout>
                                         <div class="mt-3">Student ID</div>
-                                        <v-btn outline small block color="grey darken-1" class="text-none" v-if="!item.student_id.uploaded">Upload</v-btn>
+                                        <v-btn outline small block color="grey darken-1" class="text-none" v-if="!item.student_id.uploaded" :loading="uploading_student_id[item.id]" @click.prevent="() => showFileUploadStudentId(item.id)">Upload</v-btn>
                                         <div v-if="item.student_id.status === 'PENDING'"><b class="orange--text">Pending verification</b></div>
                                         <div v-if="item.student_id.status === 'VERIFIED'"><b class="green--text text--darken-1">We have verified your student ID</b></div>
                                         <div v-if="item.student_id.status === 'REJECTED'"><b class="red--text text--darken-1">Your student ID is inadequate. Please upload another one.</b></div>
+                                        <input type="file" :id="'file_stdid_' + item.id" v-on:change="() => handleFileUploadStudentId(item.id)" style="display: none"/>
 
                                         <div v-if="item.student_id.url" class="mt-1">
                                             <v-layout align-center>
@@ -60,7 +61,7 @@
                                                     <a target="_blank" :href="item.student_id.url">{{item.student_id.filename}}</a>
                                                 </v-flex>
                                                 <v-flex shrink>
-                                                    <v-btn icon small class="ma-0" v-if="item.student_id.status === 'PENDING' || item.student_id.status === 'REJECTED'"><v-icon small color="red">delete</v-icon></v-btn>
+                                                    <v-btn icon small class="ma-0" v-if="item.student_id.status === 'PENDING' || item.student_id.status === 'REJECTED'" :loading="deleting_student_id[item.id]" @click.prevent="() => deleteStudentId(item.id)"><v-icon small color="red">delete</v-icon></v-btn>
                                                 </v-flex>
                                             </v-layout>
                                         </div>
@@ -235,7 +236,9 @@
                 snackbar_text: '',
                 snackbar_color: 'success',
                 uploading_pop: false,
-                deleting_pop: false
+                deleting_pop: false,
+                uploading_student_id: {},
+                deleting_student_id: {},
             }
         },
         methods: {
@@ -300,6 +303,49 @@
                     this.show_snackbar("Error: " + e.toString(), 'error');
                 }).finally(() => {
                     this.deleting_pop = false;
+                });
+            },
+            showFileUploadStudentId(userId) {
+                console.log('STDID', this.$refs['file_stdid_' + userId]);
+                document.getElementById('file_stdid_' + userId).click();
+            },
+            handleFileUploadStudentId(userId) {
+                const file = document.getElementById('file_stdid_' + userId).files[0];
+
+                let formData = new FormData();
+                formData.append('file', file);
+
+                this.uploading_student_id[userId] = true;
+                axios.post(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/student_id?user=${userId}`, formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': `Bearer ${this.$store.getters.jwt}`
+                        }
+                    }
+                ).then(() => {
+                    this.$emit("competition-refetch");
+                }).catch((e) => {
+                    this.show_snackbar("Error uploading file: " + e.toString(), 'error');
+                }).finally(() => {
+                    this.uploading_student_id[userId] = false;
+                });
+            },
+            deleteStudentId(userId) {
+                this.deleting_student_id[userId] = true;
+                axios.delete(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/student_id?user=${userId}`,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': `Bearer ${this.$store.getters.jwt}`
+                        }
+                    }
+                ).then(() => {
+                    this.$emit("competition-refetch");
+                }).catch((e) => {
+                    this.show_snackbar("Error: " + e.toString(), 'error');
+                }).finally(() => {
+                    this.deleting_student_id[userId] = false;
                 });
             },
             show_snackbar(text, color) {
