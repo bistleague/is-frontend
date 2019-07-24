@@ -188,10 +188,10 @@
                                 <v-icon small class="mr-1">attachment</v-icon>
                             </v-flex>
                             <v-flex>
-                                <a target="_blank" href="http://docs.bistleague.com/v/py/1182.png">IMG_0425.jpg</a>
+                                <a target="_blank" :href="data.payment.url">{{data.payment.filename}}</a>
                             </v-flex>
                             <v-flex shrink>
-                                <v-btn icon small class="ma-0" v-if="data.payment.status !== 'VERIFIED'"><v-icon small color="red">delete</v-icon></v-btn>
+                                <v-btn icon small class="ma-0" v-if="data.payment.status !== 'VERIFIED'" :loading="deleting_pop" @click.prevent="deleteProofOfPayment"><v-icon small color="red">delete</v-icon></v-btn>
                             </v-flex>
                         </v-layout>
                         <v-btn outline block class="mt-3 text-none" v-if="!data.payment.uploaded" :loading="uploading_pop" @click.prevent="$refs.file_pop.click()">Upload</v-btn>
@@ -234,7 +234,8 @@
                 snackbar: false,
                 snackbar_text: '',
                 snackbar_color: 'success',
-                uploading_pop: false
+                uploading_pop: false,
+                deleting_pop: false
             }
         },
         methods: {
@@ -269,7 +270,7 @@
                 formData.append('file', file);
 
                 this.uploading_pop = true;
-                axios.post(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/upload_pop`, formData,
+                axios.post(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/pop`, formData,
                     {
                         headers: {
                             'Content-Type': 'multipart/form-data',
@@ -279,10 +280,26 @@
                 ).then(() => {
                     this.$emit("competition-refetch");
                 }).catch((e) => {
-                    console.log(e);
                     this.show_snackbar("Error uploading file: " + e.toString(), 'error');
                 }).finally(() => {
                     this.uploading_pop = false;
+                });
+            },
+            deleteProofOfPayment() {
+                this.deleting_pop = true;
+                axios.delete(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/pop`,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': `Bearer ${this.$store.getters.jwt}`
+                        }
+                    }
+                ).then(() => {
+                    this.$emit("competition-refetch");
+                }).catch((e) => {
+                    this.show_snackbar("Error: " + e.toString(), 'error');
+                }).finally(() => {
+                    this.deleting_pop = false;
                 });
             },
             show_snackbar(text, color) {
