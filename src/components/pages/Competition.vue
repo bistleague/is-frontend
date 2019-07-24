@@ -6,7 +6,7 @@
         </BLSubHeader>
         <v-content v-if="!loading">
             <NoTeamPartial :data="data" v-if="step === 0" v-on:competition-refetch="load"></NoTeamPartial>
-            <RegistrationPartial :data="data" v-if="step === 1"></RegistrationPartial>
+            <RegistrationPartial :data="data" v-if="step === 1" v-on:competition-refetch="load"></RegistrationPartial>
             <PreliminaryPartial :data="data" v-if="step === 2"></PreliminaryPartial>
             <SemifinalPartial :data="data" v-if="step === 3"></SemifinalPartial>
             <FinalPartial :data="data" v-if="step === 4"></FinalPartial>

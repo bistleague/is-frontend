@@ -194,7 +194,8 @@
                                 <v-btn icon small class="ma-0" v-if="data.payment.status !== 'VERIFIED'"><v-icon small color="red">delete</v-icon></v-btn>
                             </v-flex>
                         </v-layout>
-                        <v-btn outline block class="mt-3 text-none" v-if="!data.payment.uploaded">Upload</v-btn>
+                        <v-btn outline block class="mt-3 text-none" v-if="!data.payment.uploaded" :loading="uploading_pop" @click.prevent="$refs.file_pop.click()">Upload</v-btn>
+                        <input type="file" id="file_pop" ref="file_pop" v-on:change="handleFileUploadProofOfPayment" style="display: none"/>
                     </v-card-text>
                 </v-card>
 
@@ -214,6 +215,7 @@
 <script>
     import BLCenterWrap from "../../partials/BLCenterWrap";
     const $ = require('jquery');
+    const axios = require('axios');
 
     export default {
         name: "RegistrationPartial",
@@ -231,7 +233,8 @@
                 university: '',
                 snackbar: false,
                 snackbar_text: '',
-                snackbar_color: 'success'
+                snackbar_color: 'success',
+                uploading_pop: false
             }
         },
         methods: {
@@ -257,6 +260,29 @@
                 }).fail(function(e) {
                     self.show_snackbar(`Error: ${e.toString()}`, "error");
                     self.saving = false;
+                });
+            },
+            handleFileUploadProofOfPayment() {
+                const file = this.$refs.file_pop.files[0];
+
+                let formData = new FormData();
+                formData.append('file', file);
+
+                this.uploading_pop = true;
+                axios.post(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/upload_pop`, formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': `Bearer ${this.$store.getters.jwt}`
+                        }
+                    }
+                ).then(() => {
+                    this.$emit("competition-refetch");
+                }).catch((e) => {
+                    console.log(e);
+                    this.show_snackbar("Error uploading file: " + e.toString(), 'error');
+                }).finally(() => {
+                    this.uploading_pop = false;
                 });
             },
             show_snackbar(text, color) {

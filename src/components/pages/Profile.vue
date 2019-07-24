@@ -107,6 +107,8 @@
     import BLSubHeader from "../partials/BLSubHeader";
     import BLCenterWrap from "../partials/BLCenterWrap";
     const $ = require("jquery");
+    const axios = require('axios');
+
     export default {
         name: "Profile",
         components: {BLCenterWrap, BLSubHeader, BLToolbar},
@@ -163,19 +165,14 @@
             load: function() {
                 this.$emit("show-loading");
 
-                let self = this;
-                $.ajax({
-                    contentType: 'application/json',
-                    headers: {'Authorization': `Bearer ${self.$store.getters.jwt}`},
-                    type: 'GET',
-                    url: `${process.env.VUE_APP_API_BASE_URL}/v1/user/profile`
-                }).done(function(data) {
-                    self.data = data;
-                    self.loading = false;
-                    self.$emit("hide-loading");
-                }).fail(function() {
-                    // TODO show error
-                    self.$emit("hide-loading");
+                axios.get(`${process.env.VUE_APP_API_BASE_URL}/v1/user/profile`, {
+                    headers: {'Authorization': `Bearer ${this.$store.getters.jwt}`}
+                }).then((response) => {
+                    this.data = response.data;
+                    this.loading = false;
+                    this.$emit("hide-loading");
+                }).catch(() => {
+                    this.$emit("hide-loading");
                 });
             },
             save: function() {
