@@ -79,6 +79,25 @@
                 </v-flex>
             </v-layout>
         </div>
+        <v-dialog
+                v-model="deletingMember"
+                persistent
+                width="300"
+        >
+            <v-card
+                    color="primary"
+                    dark
+            >
+                <v-card-text>
+                    Please wait while we're deleting the member.
+                    <v-progress-linear
+                            indeterminate
+                            color="white"
+                            class="mb-0"
+                    ></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -93,7 +112,7 @@
                 uploading_proof_of_enrollment: false,
                 deleting_student_id: false,
                 deleting_proof_of_enrollment: false,
-                leaving_team: false
+                deletingMember: false
             }
         },
         methods: {
@@ -176,21 +195,28 @@
                 });
             },
             deleteMember() {
-                this.leaving_team = true;
-                axios.delete(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/member?user=${(this.item.is_user) ? '' : this.item.id}`,
-                    {
-                        headers: {
-                            'Content-Type': 'multipart/form-data',
-                            'Authorization': `Bearer ${this.$store.getters.jwt}`
+                this.$confirm(`Are you sure you want to ${this.item.is_user ? 'leave the team' : `delete ${this.item.name} from the team`}?`)
+                    .then((confirmed) => {
+                        if(!confirmed) {
+                            return;
                         }
-                    }
-                ).then(() => {
-                    this.$emit("competition-refetch");
-                }).catch((e) => {
-                    this.show_snackbar("Error: " + e.toString(), 'error');
-                }).finally(() => {
-                    this.leaving_team = false;
-                });
+
+                        this.deletingMember = true;
+                        axios.delete(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/member?user=${(this.item.is_user) ? '' : this.item.id}`,
+                            {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data',
+                                    'Authorization': `Bearer ${this.$store.getters.jwt}`
+                                }
+                            }
+                        ).then(() => {
+                            this.$emit("competition-refetch");
+                        }).catch((e) => {
+                            this.show_snackbar("Error: " + e.toString(), 'error');
+                        }).finally(() => {
+                            this.deletingMember = false;
+                        });
+                    });
             }
         }
     }

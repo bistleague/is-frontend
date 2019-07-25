@@ -6,11 +6,13 @@ import VuexPersist from 'vuex-persist'
 import VueAnalytics from 'vue-analytics'
 import './stylus/main.styl';
 import Vuex from 'vuex'
+import VuetifyConfirm from 'vuetify-confirm'
 
 Vue.config.productionTip = false;
 
 // Setup Vuex
 Vue.use(Vuex);
+Vue.use(VuetifyConfirm);
 
 const vuexPersist = new VuexPersist({
     key: 'bistleague',
