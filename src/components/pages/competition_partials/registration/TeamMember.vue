@@ -12,9 +12,9 @@
                     </template>
 
                     <v-list>
-                        <v-list-tile>
-                            <v-list-tile-title v-if="true">Leave team</v-list-tile-title> <!-- TODO fix -->
-                            <v-list-tile-title v-if="!true">Delete member</v-list-tile-title>
+                        <v-list-tile @click="deleteMember">
+                            <v-list-tile-title v-if="item.is_user">Leave team</v-list-tile-title> <!-- TODO fix -->
+                            <v-list-tile-title v-if="!item.is_user">Delete member</v-list-tile-title>
                         </v-list-tile>
                     </v-list>
                 </v-menu>
@@ -92,7 +92,8 @@
                 uploading_student_id: false,
                 uploading_proof_of_enrollment: false,
                 deleting_student_id: false,
-                deleting_proof_of_enrollment: false
+                deleting_proof_of_enrollment: false,
+                leaving_team: false
             }
         },
         methods: {
@@ -172,6 +173,23 @@
                     this.show_snackbar("Error: " + e.toString(), 'error');
                 }).finally(() => {
                     this.deleting_proof_of_enrollment = false;
+                });
+            },
+            deleteMember() {
+                this.leaving_team = true;
+                axios.delete(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/member?user=${(this.item.is_user) ? '' : this.item.id}`,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': `Bearer ${this.$store.getters.jwt}`
+                        }
+                    }
+                ).then(() => {
+                    this.$emit("competition-refetch");
+                }).catch((e) => {
+                    this.show_snackbar("Error: " + e.toString(), 'error');
+                }).finally(() => {
+                    this.leaving_team = false;
                 });
             }
         }
