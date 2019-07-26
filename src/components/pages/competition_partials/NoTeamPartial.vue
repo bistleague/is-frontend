@@ -4,7 +4,7 @@
             <v-flex xs12 sm6 offset-sm3>
                 <div class="headline font-weight-bold grey--text text--darken-1">Craving for some challenges?</div>
                 <p class="mt-3 grey--text text--darken-1">
-                    Glad we found you! Lorem ipsum dolor sit amet. Petra tolong isiin captionnya dong thanks.
+                    Glad we found you! Oh but wait, you can't do it alone. Thank God, we've prepared this one :D. Please choose to create or join a team.
                 </p>
 
                 <v-card color="blue" dark class="mt-4">
@@ -82,7 +82,7 @@
                     </v-btn>
                     <v-spacer></v-spacer>
 
-                    <v-btn color="primary" outline class="text-none" @click="joinTeam" :loading="joiningTeam">
+                    <v-btn color="indigo" outline class="text-none" @click="joinTeam" :loading="joiningTeam">
                         Join
                     </v-btn>
                 </v-card-actions>
@@ -127,7 +127,7 @@
             joinTeam() {
                 this.joiningTeam = true;
 
-                axios.post(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/member`, {invite_code: this.inviteCode}, {
+                axios.post(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/member`, {invite_code: this.inviteCode.toUpperCase()}, {
                     headers: {'Authorization': `Bearer ${this.$store.getters.jwt}`},
                 }).then(() => {
                     this.$emit("competition-refetch");

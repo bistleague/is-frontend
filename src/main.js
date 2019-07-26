@@ -65,6 +65,7 @@ const store = new Vuex.Store({
 
 // Setup routes
 const routes = [
+    { path: '/', redirect: '/profile' },
     {path: "/login", component: () => import('./components/pages/Login')},
     {path: "/register", component: () => import('./components/pages/SignUp')},
     {path: "/recover", component: () => import('./components/pages/ForgotPassword')},
@@ -72,13 +73,13 @@ const routes = [
     {path: "/email/verify", component: () => import('./components/pages/VerifyEmail')},
     {path: "/profile", alias:["/profile/account"], meta: {auth: true, admin: false}, component: () => import('./components/pages/Profile')},
     {path: "/profile/complete", meta: {auth: true, admin: false}, component: () => import('./components/pages/CompleteProfile')},
-    {path: "/competition/register", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Registration')},
-    {path: "/competition/preliminary", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Preliminary')},
-    {path: "/competition/semifinal", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Semifinal')},
-    {path: "/competition/final", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Final')},
-    {path: "/competition/noteam", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/NoTeam')},
+    // {path: "/competition/register", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Registration')},
+    // {path: "/competition/preliminary", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Preliminary')},
+    // {path: "/competition/semifinal", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Semifinal')},
+    // {path: "/competition/final", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Final')},
+    // {path: "/competition/noteam", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/NoTeam')},
     {path: "/competition", meta: {auth: true, admin: false}, component: () => import('./components/pages/Competition')},
-    {path: "/seminar", meta: {auth: true, admin: false}, component: () => import('./components/pages/Seminar')},
+    // {path: "/seminar", meta: {auth: true, admin: false}, component: () => import('./components/pages/Seminar')},
 ];
 
 const router = new VueRouter({
