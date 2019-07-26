@@ -18,19 +18,7 @@
 
                 <v-card elevation-2>
                     <div v-for="item in data.team_members" :key="item.id">
-                        <v-expansion-panel expand class="elevation-0">
-                            <v-expansion-panel-content>
-                                <template v-slot:header>
-                                    <div>{{item.name}}</div>
-                                </template>
-                                <v-card>
-                                    <v-card-text class="grey lighten-4 pl-4 pr-4">
-                                        <TeamMember :item="item" @competition-refetch="$emit('competition-refetch')"></TeamMember>
-                                    </v-card-text>
-                                </v-card>
-                            </v-expansion-panel-content>
-                        </v-expansion-panel>
-                        <v-divider></v-divider>
+                        <TeamMember :item="item" @competition-refetch="$emit('competition-refetch')"></TeamMember>
                     </div>
                     <v-btn flat block color="grey darken-1" class="text-none mt-0" @click.stop="dialog = true"><v-icon>add</v-icon> &nbsp; Invite team member</v-btn>
                     <v-dialog v-model="dialog" max-width="400">
