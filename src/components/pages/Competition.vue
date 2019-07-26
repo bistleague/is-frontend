@@ -23,8 +23,7 @@
     import SemifinalPartial from "./competition_partials/SemifinalPartial";
     import FinalPartial from "./competition_partials/FinalPartial";
     import NoTeamPartial from "./competition_partials/NoTeamPartial";
-    const $ = require("jquery");
-
+    const axios = require("axios");
 
     export default {
         name: "Competition",
@@ -53,24 +52,30 @@
                 return true;
             },
             load: function() {
-                let self = this;
-                // TODO change URL
                 this.$emit("show-loading");
 
-                $.ajax({
-                    contentType: 'application/json',
-                    headers: {'Authorization': `Bearer ${self.$store.getters.jwt}`},
-                    type: 'GET',
-                    url: `${process.env.VUE_APP_API_BASE_URL}/v1/competition`
-                }).done(function(data) {
-                    self.step = data.step;
-                    self.data = data.data;
-                    self.loading = false;
-                    self.$emit("hide-loading");
-                }).fail(function() {
-                    // TODO show error
-                    self.$emit("hide-loading");
+                axios.get(`${process.env.VUE_APP_API_BASE_URL}/v1/competition`, {
+                    headers: {'Authorization': `Bearer ${this.$store.getters.jwt}`},
+                }).then((response) => {
+                    const data = response.data;
+
+                    if(data.error) {
+                        this.handleError(data.error);
+                    }
+
+                    this.step = data.step;
+                    this.data = data.data;
+                    this.loading = false
+                }).finally(() => {
+                    this.$emit("hide-loading");
+
                 });
+            },
+            handleError(error) {
+                switch(error) {
+                    case 'PROFILE_INCOMPLETE':
+                        this.$router.push({path: '/profile/complete?continue=%2Fcompetition'});
+                }
             }
         }
     }

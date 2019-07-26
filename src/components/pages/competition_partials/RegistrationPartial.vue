@@ -39,12 +39,12 @@
                             <v-card-text>
                                 Ask your friend to sign up on Bistleague.com, and join a team with the invite code:
                                 <v-sheet color="grey lighten-4" class="pa-1 mt-3 mb-1">
-                                    <div class="headline font-weight-bold" align="center" style="letter-spacing: 8px !important;">{{data.invite_code}}</div>
+                                    <div class="headline font-weight-bold" align="center" style="letter-spacing: 8px !important;">{{inviteCode}}</div>
                                 </v-sheet>
                             </v-card-text>
 
                             <v-card-actions>
-                                <v-btn color="grey darken-2" flat class="text-none" @click="dialog = false">
+                                <v-btn color="grey darken-2" flat class="text-none" @click="recreateInviteCode" :loading="recreatingInviteCode">
                                     Recreate code
                                 </v-btn>
                                 <v-spacer></v-spacer>
@@ -138,7 +138,6 @@
 <script>
     import BLCenterWrap from "../../partials/BLCenterWrap";
     import TeamMember from "./registration/TeamMember";
-    const $ = require('jquery');
     const axios = require('axios');
 
     export default {
@@ -148,6 +147,7 @@
         mounted() {
             this.teamName = this.data.team_name;
             this.university = this.data.university;
+            this.inviteCode = this.data.invite_code;
         },
         data () {
             return {
@@ -162,31 +162,27 @@
                 deleting_pop: false,
                 uploading_student_id: {},
                 deleting_student_id: {},
+                recreatingInviteCode: false,
+                inviteCode: ''
             }
         },
         methods: {
             saveChanges() {
-                const self = this;
-
-                const payload = JSON.stringify({
+                const payload = {
                     name: this.teamName,
                     university: this.university
-                });
+                };
 
                 this.saving = true;
-                $.ajax({
-                    headers: {'Authorization': `Bearer ${self.$store.getters.jwt}`},
-                    type: 'PUT',
-                    contentType: 'application/json',
-                    data: payload,
-                    dataType: 'json',
-                    url: `${process.env.VUE_APP_API_BASE_URL}/v1/competition/team`
-                }).done(function() {
-                    self.show_snackbar("Changes saved!", "success");
-                    self.saving = false;
-                }).fail(function(e) {
-                    self.show_snackbar(`Error: ${e.toString()}`, "error");
-                    self.saving = false;
+
+                axios.put(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team`, payload, {
+                    headers: {'Authorization': `Bearer ${this.$store.getters.jwt}`}
+                }).then(() => {
+                    this.show_snackbar("Changes saved!", "success");
+                }).catch((e) => {
+                    this.show_snackbar(`Error: ${e.toString()}`, "error");
+                }).finally(() => {
+                    this.saving = false;
                 });
             },
             handleFileUploadProofOfPayment() {
@@ -227,6 +223,18 @@
                 }).finally(() => {
                     this.deleting_pop = false;
                 });
+            },
+            recreateInviteCode() {
+                this.recreatingInviteCode = true;
+                axios.post(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/invite_code`, {}, {
+                    headers: {'Authorization': `Bearer ${this.$store.getters.jwt}`}
+                }).then((response) => {
+                    this.inviteCode = response.data.code;
+                }).catch(() => {
+                    // TODO show error
+                }).finally(() => {
+                    this.recreatingInviteCode = false;
+                })
             },
             show_snackbar(text, color) {
                 this.snackbar = true;
