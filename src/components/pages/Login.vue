@@ -49,7 +49,7 @@
 </template>
 
 <script>
-    const $ = require('jquery');
+    const axios = require('axios');
 
     export default {
         name: "Login",
@@ -72,45 +72,32 @@
             login() {
                 this.loading = true;
 
-                let payload = JSON.stringify({
+                let payload = {
                     email: this.email,
                     password: this.password
-                });
+                };
 
-                let self = this;
+                axios.post(`${process.env.VUE_APP_API_BASE_URL}/v1/auth/login`, payload).then((response) => {
+                    const data = response.data;
 
-                $.ajax({
-                    contentType: 'application/json',
-                    data: payload,
-                    dataType: 'json',
-                    type: 'POST',
-                    url: `${process.env.VUE_APP_API_BASE_URL}/v1/auth/login`
-                }).done(function(data) {
-                    let user = data.user;
-                    let token = data.token;
-                    let exp = data.expires_at;
+                    const user = data.user;
+                    const token = data.token;
+                    const exp = data.expires_at;
 
                     // Commit to Vuex
-                    self.$store.commit('login', {userdata: user, jwt: token, exp: exp});
-                    self.$router.push(self.$route.query.continue || '/profile');
+                    this.$store.commit('login', {userdata: user, jwt: token, exp: exp});
+                    this.$router.push(this.$route.query.continue || '/profile');
 
-                    self.loading = false;
-                }).fail(function(jqXHR) {
-                    self.loading = false;
-
-                    if (jqXHR.readyState === 4) {
-                        // HTTP error
-                        let error = (jqXHR.responseJSON) ? jqXHR.responseJSON.error : "Something went wrong";
-                        self.show_snackbar(error, 'error');
-                    } else if (jqXHR.readyState === 0) {
-                        // Network error
-                        let error = "We can't connect to our server, please check your internet connection";
-                        self.show_snackbar(error, 'error');
+                    this.loading = false;
+                }).catch((e) => {
+                    if(e.response) {
+                        const error = e.response.data.error || "Something went wrong..";
+                        this.show_snackbar(error, 'error');
                     } else {
-                        // something weird is happening
-                        let error = "Something went wrong";
-                        self.show_snackbar(error, 'error');
+                        this.show_snackbar("We can't connect to our server, please check your internet connection", 'error');
                     }
+                }).finally(() => {
+                    this.loading = false;
                 });
             }
         }

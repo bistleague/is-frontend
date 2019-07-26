@@ -19,11 +19,11 @@ const vuexPersist = new VuexPersist({
     storage: localStorage
 });
 
-const store = new Vuex.Store({
+let store = new Vuex.Store({
     plugins: [vuexPersist.plugin],
     state: {
         userdata: {},
-        token: null,
+        jwt: null,
         expires_at: 0
     },
     mutations: {
@@ -65,7 +65,7 @@ const store = new Vuex.Store({
 
 // Setup routes
 const routes = [
-    { path: '/', redirect: '/profile' },
+    {path: '/', redirect: '/profile'},
     {path: "/login", component: () => import('./components/pages/Login')},
     {path: "/register", component: () => import('./components/pages/SignUp')},
     {path: "/recover", component: () => import('./components/pages/ForgotPassword')},
@@ -87,6 +87,8 @@ const router = new VueRouter({
     mode: 'history',
 });
 
+Vue.use(VueRouter);
+
 router.beforeEach((to, from, next) => {
     if (to.meta.auth) {
         // This route requires auth, check if logged in. Else, redirect to login
@@ -97,7 +99,7 @@ router.beforeEach((to, from, next) => {
 
         // User logged in
         // Check if has admin access is requested AND fulfilled
-        if(to.meta.admin && this.$store.getters.user.is_admin !== true) {
+        if(to.meta.admin && store.getters.user.is_admin !== true) {
             next({ path: `/unauthorized` });
             return;
         }
@@ -107,8 +109,6 @@ router.beforeEach((to, from, next) => {
         next(); // does not require auth, make sure to always call next()!
     }
 });
-
-Vue.use(VueRouter);
 
 // Setup Google Analytics
 if(process.env.VUE_APP_GA_ID) {
@@ -123,6 +123,3 @@ new Vue({
     router,
     render: h => h(App),
 }).$mount('#app');
-
-const $ = require('jquery');
-window.$ = $;
