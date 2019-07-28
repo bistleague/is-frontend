@@ -1,29 +1,44 @@
 <template>
-    <v-app>
+    <div>
         <BLToolbar />
-        <BLStepper step="4" />
-        <v-content class="pl-3 pr-3">
-            <v-layout>
-                <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
-                    <FinalAwait v-if="await" :qualified="qualified" team-name="My Awesome Team"></FinalAwait>
-                </v-flex>
-            </v-layout>
+        <BLSubHeader>
+            <BLStepper step="4" />
+        </BLSubHeader>
+        <v-content class="pl-3 pr-3" v-if="!loading">
+            <FinalPartial :data="predata"></FinalPartial>
         </v-content>
-    </v-app>
+    </div>
 </template>
 
 <script>
     import BLToolbar from "../../partials/BLToolbar";
     import BLStepper from "../../partials/BLStepper";
-    import FinalAwait from "../../partials/competition/FinalAwait";
+    import BLSubHeader from "../../partials/BLSubHeader";
+    import FinalPartial from "../competition_partials/FinalPartial";
+    const $ = require("jquery");
 
     export default {
         name: "Final",
-        components: {FinalAwait, BLToolbar, BLStepper},
+        components: {FinalPartial, BLSubHeader, BLToolbar, BLStepper},
         data() {
             return {
-                await: true,
-                qualified: true
+                loading: true,
+                predata: {}
+            }
+        },
+        mounted: function() {
+            this.load();
+        },
+        methods: {
+            load: function() {
+                let self = this;
+                // TODO change URL
+                $.get("/data/final.json").done(function(data) {
+                    self.predata = data;
+                    self.loading = false;
+                }).fail(function() {
+                    alert("error");
+                });
             }
         }
     }

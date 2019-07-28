@@ -1,36 +1,29 @@
 <template>
-    <div class="bg-primary pl-3 pr-3">
-        <v-layout>
-            <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
-                <div class="md-stepper-horizontal">
-                    <div class="md-step" v-bind:class="{active: (step == 1)}">
-                        <div class="md-step-circle"><span>1</span></div>
-                        <div class="md-step-title">Registration</div>
-                        <div class="md-step-bar-left"></div>
-                        <div class="md-step-bar-right"></div>
-                    </div>
-                    <div class="md-step" v-bind:class="{active: (step == 2)}">
-                        <div class="md-step-circle"><span>2</span></div>
-                        <div class="md-step-title">Preliminary</div>
-                        <div class="md-step-bar-left"></div>
-                        <div class="md-step-bar-right"></div>
-                    </div>
-                    <div class="md-step" v-bind:class="{active: (step == 3)}">
-                        <div class="md-step-circle"><span>3</span></div>
-                        <div class="md-step-title">Semifinal</div>
-                        <div class="md-step-bar-left"></div>
-                        <div class="md-step-bar-right"></div>
-                    </div>
-                    <div class="md-step" v-bind:class="{active: (step == 4)}">
-                        <div class="md-step-circle"><span>4</span></div>
-                        <div class="md-step-title">Final</div>
-                        <div class="md-step-bar-left"></div>
-                        <div class="md-step-bar-right"></div>
-                    </div>
-                </div>
-
-            </v-flex>
-        </v-layout>
+    <div class="md-stepper-horizontal">
+        <div class="md-step" v-bind:class="{active: (step == 1)}">
+            <div class="md-step-circle"><span>1</span></div>
+            <div class="md-step-title">Registration</div>
+            <div class="md-step-bar-left"></div>
+            <div class="md-step-bar-right"></div>
+        </div>
+        <div class="md-step" v-bind:class="{active: (step == 2)}">
+            <div class="md-step-circle"><span>2</span></div>
+            <div class="md-step-title">Preliminary</div>
+            <div class="md-step-bar-left"></div>
+            <div class="md-step-bar-right"></div>
+        </div>
+        <div class="md-step" v-bind:class="{active: (step == 3)}">
+            <div class="md-step-circle"><span>3</span></div>
+            <div class="md-step-title">Semifinal</div>
+            <div class="md-step-bar-left"></div>
+            <div class="md-step-bar-right"></div>
+        </div>
+        <div class="md-step" v-bind:class="{active: (step == 4)}">
+            <div class="md-step-circle"><span>4</span></div>
+            <div class="md-step-title">Final</div>
+            <div class="md-step-bar-left"></div>
+            <div class="md-step-bar-right"></div>
+        </div>
     </div>
 </template>
 
@@ -42,10 +35,6 @@
 </script>
 
 <style scoped>
-    .bg-primary {
-        background-color: var(--v-primary-base)
-    }
-
     .md-stepper-horizontal {
         display:table;
         table-layout: fixed;

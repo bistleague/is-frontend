@@ -1,29 +1,48 @@
 <template>
-    <v-app>
+    <div>
         <BLToolbar />
-        <BLStepper step="3" />
-        <v-content class="pl-3 pr-3">
-            <v-layout>
-                <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
-                    <SemifinalAwait v-if="await" :qualified="qualified" team-name="My Awesome Team"></SemifinalAwait>
-                </v-flex>
-            </v-layout>
+        <BLSubHeader>
+            <BLStepper step="3" />
+        </BLSubHeader>
+        <v-content class="pl-3 pr-3" v-if="!loading">
+            <SemifinalPartial :data="predata"></SemifinalPartial>
         </v-content>
-    </v-app>
+    </div>
 </template>
 
 <script>
     import BLToolbar from "../../partials/BLToolbar";
     import BLStepper from "../../partials/BLStepper";
-    import SemifinalAwait from "../../partials/competition/SemifinalAwait";
+    import BLSubHeader from "../../partials/BLSubHeader";
+    import SemifinalPartial from "../competition_partials/SemifinalPartial";
+    const timeago = require("timeago.js");
+    const $ = require("jquery");
 
     export default {
         name: "Semifinal",
-        components: {BLToolbar, BLStepper, SemifinalAwait},
+        components: {SemifinalPartial, BLSubHeader, BLToolbar, BLStepper},
         data() {
             return {
-                await: true,
-                qualified: true
+                loading: true,
+                predata: {}
+            }
+        },
+        mounted: function() {
+            this.load();
+        },
+        methods: {
+            parse_time: function(time) {
+                return timeago.format(time);
+            },
+            load: function() {
+                let self = this;
+                // TODO change URL
+                $.get("/data/semifinal.json").done(function(data) {
+                    self.predata = data;
+                    self.loading = false;
+                }).fail(function() {
+                    alert("error");
+                });
             }
         }
     }
