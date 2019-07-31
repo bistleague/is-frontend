@@ -23,7 +23,7 @@
                     <v-btn flat block color="grey darken-1" class="text-none mt-0" @click.stop="dialog = true"><v-icon>add</v-icon> &nbsp; Invite team member</v-btn>
                     <v-dialog v-model="dialog" max-width="400">
                         <v-card>
-                            <v-card-title class="subheading primary white--text">Invite team member</v-card-title>
+                            <v-card-title class="subheading primary white--text" v-if="data.team_members.length < 3">Invite team member</v-card-title>
                             <v-card-text>
                                 Ask your friend to sign up on Bistleague.com, and join a team with the invite code:
                                 <v-sheet color="grey lighten-4" class="pa-1 mt-3 mb-1">
