@@ -4,10 +4,14 @@
             <v-flex xs12 md10 offset-md1 lg8 offset-lg2 xl6 offset-xl3>
                 <v-toolbar flat color="#ffffff">
                     <v-toolbar-title>
-                        <v-img :src="require('../../assets/logo.png')" width="30"></v-img>
+                        <a :href="landingPageUrl">
+                            <v-img :src="require('../../assets/logo.png')" width="30"></v-img>
+                        </a>
                     </v-toolbar-title>
                     <v-toolbar-title class="subheading font-weight-bold">
-                        BIST League 2.0
+                        <a :href="landingPageUrl" style="color: black; text-decoration: none;">
+                            BIST League 2.0
+                        </a>
                     </v-toolbar-title>
 
                     <v-spacer></v-spacer>
@@ -36,7 +40,7 @@
                                     <v-list-tile-title>Competition</v-list-tile-title>
                                 </v-list-tile>
                                 <!--<v-list-tile to="/seminar" exact>-->
-                                    <!--<v-list-tile-title>Seminar</v-list-tile-title>-->
+                                <!--<v-list-tile-title>Seminar</v-list-tile-title>-->
                                 <!--</v-list-tile>-->
                                 <v-list-tile to="/profile" exact>
                                     <v-list-tile-title>Profile</v-list-tile-title>
@@ -62,6 +66,11 @@
             logout() {
                 this.$store.commit('logout');
                 this.$router.push('/login');
+            }
+        },
+        data() {
+            return {
+                landingPageUrl: process.env.VUE_APP_WEBSITE_BASE_URL
             }
         }
     }
