@@ -5,6 +5,7 @@
             <BLStepper :step="step" />
         </BLSubHeader>
         <v-content v-if="!loading">
+            <RegClosedPartial v-if="step === -1"></RegClosedPartial>
             <NoTeamPartial :data="data" v-if="step === 0" v-on:competition-refetch="load"></NoTeamPartial>
             <RegistrationPartial :data="data" v-if="step === 1" v-on:competition-refetch="load"></RegistrationPartial>
             <PreliminaryPartial :data="data" v-if="step === 2"></PreliminaryPartial>
@@ -23,11 +24,13 @@
     import SemifinalPartial from "./competition_partials/SemifinalPartial";
     import FinalPartial from "./competition_partials/FinalPartial";
     import NoTeamPartial from "./competition_partials/NoTeamPartial";
+    import RegClosedPartial from "./competition_partials/RegClosedPartial";
     const axios = require("axios");
 
     export default {
         name: "Competition",
         components: {
+            RegClosedPartial,
             NoTeamPartial,
             FinalPartial,
             SemifinalPartial, PreliminaryPartial, RegistrationPartial, BLSubHeader, BLStepper, BLToolbar},
