@@ -168,6 +168,12 @@
                 }).then(() => {
                     this.show_snackbar("Changes saved!", "success");
                 }).catch((e) => {
+                    if(e.response) {
+                        if(e.response.data.error) {
+                            this.show_snackbar(e.response.data.error, "error");
+                            return;
+                        }
+                    }
                     this.show_snackbar(`Error: ${e.toString()}`, "error");
                 }).finally(() => {
                     this.saving = false;

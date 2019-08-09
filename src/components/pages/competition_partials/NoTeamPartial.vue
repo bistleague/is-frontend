@@ -157,7 +157,7 @@
                     this.creatingTeam = false;
 
                     if (error.response) {
-                        this.createError = error.response.body.error;
+                        this.createError = error.response.data.error;
                     } else {
                         this.createError = error.toString();
                     }
