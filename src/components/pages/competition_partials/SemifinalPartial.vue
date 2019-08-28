@@ -47,13 +47,14 @@
                                 <a target="_blank" :href="data.submission.file_url">{{data.submission.filename}}</a>
                             </v-flex>
                             <v-flex shrink>
-                                <v-btn icon small class="ma-0" v-if="!data.submission.closed"><v-icon small color="red">delete</v-icon></v-btn>
+                                <v-btn icon small class="ma-0" v-if="!data.submission.closed" :loading="deleting_submission" @click.prevent="deleteSubmission"><v-icon small color="red">delete</v-icon></v-btn>
                             </v-flex>
                         </v-layout>
                     </v-card-text>
                     <v-card-text class="pa-3" v-if="!data.submission.uploaded">
                         Your team hasn't submitted anything.
-                        <v-btn outline color="primary" class="text-none mt-3" block>Upload submission</v-btn>
+                        <v-btn outline color="primary" class="text-none mt-3" block :loading="uploading_submission" @click.prevent="$refs.file_submission.click()">Upload submission</v-btn>
+                        <input type="file" id="file_submission" ref="file_submission" v-on:change="handleFileUploadSubmission" style="display: none"/>
                     </v-card-text>
                     <div class="pa-3 grey lighten-4">
                         <p class="ma-0" v-if="!data.submission.closed">No worries! You can edit the submission until the deadline is up.</p>
@@ -75,14 +76,60 @@
     import SemifinalClosed from "../../partials/competition/SemifinalClosed";
     import BLCenterWrap from "../../partials/BLCenterWrap";
     const timeago = require("timeago.js");
+    const axios = require('axios');
 
     export default {
         name: "SemifinalPartial",
         components: {BLCenterWrap, SemifinalClosed, SemifinalAwait},
         props: ["data"],
+        data() {
+            return {
+                uploading_submission: false,
+                deleting_submission: false
+            }
+        },
         methods: {
             parse_time: function (time) {
                 return timeago.format(time);
+            },
+            handleFileUploadSubmission() {
+                const file = this.$refs.file_submission.files[0];
+
+                let formData = new FormData();
+                formData.append('file', file);
+
+                this.uploading_submission = true;
+                axios.post(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/submission`, formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': `Bearer ${this.$store.getters.jwt}`
+                        }
+                    }
+                ).then(() => {
+                    this.$emit("competition-refetch");
+                }).catch((e) => {
+                    this.show_snackbar("Error uploading file: " + e.toString(), 'error');
+                }).finally(() => {
+                    this.uploading_submission = false;
+                });
+            },
+            deleteSubmission() {
+                this.deleting_submission = true;
+                axios.delete(`${process.env.VUE_APP_API_BASE_URL}/v1/competition/team/submission`,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': `Bearer ${this.$store.getters.jwt}`
+                        }
+                    }
+                ).then(() => {
+                    this.$emit("competition-refetch");
+                }).catch((e) => {
+                    this.show_snackbar("Error: " + e.toString(), 'error');
+                }).finally(() => {
+                    this.deleting_submission = false;
+                });
             }
         }
     }
