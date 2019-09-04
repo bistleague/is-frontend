@@ -30,10 +30,10 @@
                                         <v-progress-circular indeterminate color="primary"></v-progress-circular>
                                     </div>
                                     <div v-if="!student_id_loading">
-                                        <v-btn outline small color="red" @click="() => studentIdReject(item.user_id)" v-if="!item.student_id_rejected">
+                                        <v-btn outline small color="red" @click="studentIdReject" v-if="!item.student_id_rejected">
                                             Reject
                                         </v-btn>
-                                        <v-btn outline small color="green" @click="() => studentIdValidate(item.user_id)" v-if="!item.student_id_verified">
+                                        <v-btn outline small color="green" @click="studentIdValidate" v-if="!item.student_id_verified">
                                             Accept
                                         </v-btn>
                                     </div>
@@ -60,10 +60,10 @@
                                         <v-progress-circular indeterminate color="primary"></v-progress-circular>
                                     </div>
                                     <div v-if="!poe_loading">
-                                        <v-btn small outline color="red" @click="() => poeReject(item.user_id)" v-if="!item.poe_rejected">
+                                        <v-btn small outline color="red" @click="poeReject" v-if="!item.poe_rejected">
                                             Reject
                                         </v-btn>
-                                        <v-btn small outline color="green" @click="() => poeValidate(item.user_id)" v-if="!item.poe_verified">
+                                        <v-btn small outline color="green" @click="poeValidate" v-if="!item.poe_verified">
                                             Accept
                                         </v-btn>
                                     </div>
