@@ -137,7 +137,7 @@
             },
             load() {
                 this.loading = true;
-                axios.get(`${process.env.VUE_APP_API_BASE_URL}/v1/admin/documents/team?team_id=${this.$route.query.team_id}`, {
+                axios.get(`${process.env.VUE_APP_API_BASE_URL}/v1/admin/documents/team?team_id=${this.$route.params.teamId}`, {
                     headers: {'Authorization': `Bearer ${this.$store.getters.jwt}`},
                 })
                     .then((response) => {
