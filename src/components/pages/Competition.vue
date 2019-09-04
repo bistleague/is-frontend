@@ -8,8 +8,8 @@
             <RegClosedPartial v-if="step === -1"></RegClosedPartial>
             <NoTeamPartial :data="data" v-if="step === 0" v-on:competition-refetch="load"></NoTeamPartial>
             <RegistrationPartial :data="data" v-if="step === 1" v-on:competition-refetch="load"></RegistrationPartial>
-            <PreliminaryPartial :data="data" v-if="step === 2"></PreliminaryPartial>
-            <SemifinalPartial :data="data" v-if="step === 3"></SemifinalPartial>
+            <PreliminaryPartial :data="data" v-if="step === 2" v-on:competition-refetch="load"></PreliminaryPartial>
+            <SemifinalPartial :data="data" v-if="step === 3" v-on:competition-refetch="load"></SemifinalPartial>
             <FinalPartial :data="data" v-if="step === 4"></FinalPartial>
         </v-content>
     </div>
