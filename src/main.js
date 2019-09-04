@@ -79,6 +79,7 @@ const routes = [
     // {path: "/competition/final", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Final')},
     // {path: "/competition/noteam", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/NoTeam')},
     {path: "/competition", meta: {auth: true, admin: false}, component: () => import('./components/pages/Competition')},
+    {path: "/admin/document", meta: {auth: true, admin: true}, component: () => import('./components/pages/admin/DocumentProfile')},
     // {path: "/seminar", meta: {auth: true, admin: false}, component: () => import('./components/pages/Seminar')},
 ];
 
