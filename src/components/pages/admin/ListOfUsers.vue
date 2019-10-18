@@ -32,7 +32,7 @@
                     </template>
                     <template slot="expand" slot-scope="props">
                         <v-card flat>
-                            <v-card-text style="background-color: #F0F0F0">  
+                            <v-card-text style="background-color: #F0F0F0">
                                 <div class="display-1" style="padding: 0 0 0 10px ; margin: 0"><strong>{{ props.item.name }} </strong></div>
                                 <div class="subheading" style="padding: 0 0 0 10px ; margin: 0"> {{ props.item.email }} </div>
                                 <!-- email address verified pake switch -->
@@ -70,7 +70,7 @@
                 counter has been clicked {{ counter }} times
             </BLCenterWrap>
         </v-content>
-    </div> 
+    </div>
 </template>
 
 
@@ -78,7 +78,6 @@
     import BLToolbar from "../../partials/BLToolbar";
     import BLSubHeader from "../../partials/BLSubHeader";
     import BLCenterWrap from "../../partials/BLCenterWrap";
-    const $ = require("jquery");
 
     export default {
         name: "ListOfUsers",
