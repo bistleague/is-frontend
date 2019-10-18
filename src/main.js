@@ -79,8 +79,10 @@ const routes = [
     // {path: "/competition/final", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/Final')},
     // {path: "/competition/noteam", meta: {auth: true, admin: false}, component: () => import('./components/pages/competition/NoTeam')},
     {path: "/competition", meta: {auth: true, admin: false}, component: () => import('./components/pages/Competition')},
+    {path: "/admin/listofusers", meta: {auth: true, admin: false}, component: () => import('./components/pages/admin/ListOfUsers')},
     {path: "/admin/document/:teamId", meta: {auth: true, admin: true}, component: () => import('./components/pages/admin/DocumentProfile')},
     // {path: "/seminar", meta: {auth: true, admin: false}, component: () => import('./components/pages/Seminar')},
+    // {path: "/admin/listofusers", component: () => import('./components/pages/admin/ListOfUsers')},
 ];
 
 const router = new VueRouter({

@@ -4,6 +4,11 @@
             <div class="mt-4" v-if="qualified" align="center">
                 <div class="headline">Congratulations, <b>{{teamName}}</b>!</div>
                 <p class="mt-3 title">Your team is qualified to compete in the semifinals!</p>
+                <div class="mt-2">
+                    <a target="_blank" href="http://rebrand.ly/BISTLeague_FinalistGuideline" style="text-decoration: none">
+                        <v-btn class="text-none" color="primary" outline large>Download Semifinal Guidebook</v-btn>
+                    </a>
+                </div>
                 <v-img width="80%" :src="require('../../../assets/qualified.svg')"></v-img>
             </div>
 
